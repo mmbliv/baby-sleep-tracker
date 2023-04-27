@@ -1,6 +1,8 @@
 import Image from "next/image";
 import { Inter } from "next/font/google";
 import Header from "@/components/Header";
+import Card from "@/components/Card";
+import { FaBabyCarriage } from "react-icons/fa";
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
@@ -10,6 +12,9 @@ export default function Home() {
       className={`h-screen`}
     >
       <Header />
+      <div className={`flex items-center justify-center`}>
+        <Card icon={FaBabyCarriage} />
+      </div>
     </main>
   );
 }
