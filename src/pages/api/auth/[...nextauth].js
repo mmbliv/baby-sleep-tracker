@@ -48,7 +48,6 @@ const settings = {
   // callbacks: {
   //   async signIn({ user, account, profile, email, credentials }) {
   //     if (account.provider === "google") {
-
   //       try {
   //         const reponse = await axios.post(
   //           "http://127.0.0.1:8000/api/social/login/google/",
@@ -67,12 +66,12 @@ const settings = {
   //     }
   //     return false;
   //   },
-  //   async jwt(token, user, account, profile, isNewUser) {
-  //     return token;
-  //   },
-  //   async session(session, user) {
-  //     return session;
-  //   },
+  // async jwt(token, user, account, profile, isNewUser) {
+  //   return token;
+  // },
+  // async session(session, user) {
+  //   return session;
+  // },
   // },
   // callbacks: {
   //   async jwt(token, user, account, profile, isNewUser) {

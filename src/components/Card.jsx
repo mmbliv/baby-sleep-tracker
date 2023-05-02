@@ -3,7 +3,7 @@ import React from "react";
 const Card = (props) => {
   return (
     <div
-      className={`border-2 pt-16 pb-16 pr-5 pl-5 flex items-center justify-center gap-4 `}
+      className={`border-2 py-16 px-16 flex items-center justify-center gap-2 `}
     >
       <div>
         <props.icon />
