@@ -26,3 +26,10 @@ body {
     )
     rgb(var(--background-start-rgb));
 } */
+body {
+  max-width: 1000px;
+  /* display: flex;
+  align-items: center;
+  justify-content: center; */
+  margin: 0 auto;
+}
