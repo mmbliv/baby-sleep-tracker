@@ -11,26 +11,24 @@ datasource db {
 }
 
 model User {
-  id              String     @id @default(auto()) @map("_id") @db.ObjectId
-  name            String?
-  username        String?    @unique
-  bio             String?
-  email           String?    @unique
-  emailVerified   DateTime?
-  image           String?
-  coverImage      String?
-  profileImage    String?
-  hashedPassword  String?
-  createdAt       DateTime   @default(now())
-  updatedAt       DateTime   @updatedAt
-  followingIds    String[]   @db.ObjectId
-  hasNotification Boolean?
-  sleeping        Sleeping[]
+  id             String     @id @default(auto()) @map("_id") @db.ObjectId
+  name           String?
+  username       String?
+  bio            String?
+  email          String?    @unique
+  emailVerified  DateTime?
+  image          String?
+  coverImage     String?
+  profileImage   String?
+  hashedPassword String?
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+  sleeping       Sleeping[]
 }
 
 model Sleeping {
   id          String    @id @default(auto()) @map("_id") @db.ObjectId
-  note        String
+  note        String?
   fell_asleep DateTime
   woke_up     DateTime?
   createdAt   DateTime  @default(now())
