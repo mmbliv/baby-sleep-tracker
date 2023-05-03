@@ -5,6 +5,7 @@ const Cards = () => {
   return (
     <div className={`w-1/3`}>
       <Card icon={FaBabyCarriage} />
+      {/* <Card icon={FaBabyCarriage} /> */}
     </div>
   );
 };
