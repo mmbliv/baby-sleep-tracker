@@ -11,29 +11,30 @@ datasource db {
 }
 
 model User {
-  id              String    @id @default(auto()) @map("_id") @db.ObjectId
+  id              String     @id @default(auto()) @map("_id") @db.ObjectId
   name            String?
-  username        String?   @unique
+  username        String?    @unique
   bio             String?
-  email           String?   @unique
+  email           String?    @unique
   emailVerified   DateTime?
   image           String?
   coverImage      String?
   profileImage    String?
   hashedPassword  String?
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime  @updatedAt
-  followingIds    String[]  @db.ObjectId
+  createdAt       DateTime   @default(now())
+  updatedAt       DateTime   @updatedAt
+  followingIds    String[]   @db.ObjectId
   hasNotification Boolean?
-  posts           Post[]
+  sleeping        Sleeping[]
 }
 
-model Post {
-  id   String @id @default(auto()) @map("_id") @db.ObjectId
-  body String
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  userId    String   @db.ObjectId
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+model Sleeping {
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  note        String
+  fell_asleep DateTime
+  woke_up     DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  userId      String    @db.ObjectId
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
