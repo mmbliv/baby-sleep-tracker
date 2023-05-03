@@ -5,7 +5,8 @@ import Card from "@/components/Card";
 import { useEffect, useState } from "react";
 import Cards from "@/components/Cards";
 import { fetchAllData } from "@/utils/fetch";
-import Time from "@/components/Time";
+// import Time from "@/components/Time";
+import Timer from "@/components/Time";
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
@@ -14,7 +15,7 @@ export default function Home() {
       <Header />
       <div className={`flex flex-row`}>
         <Cards />
-        <Time />
+        <Timer />
       </div>
     </main>
   );
