@@ -11,21 +11,31 @@ import useTimer from "@/hooks/useTimer";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import useCurrentUser from "@/hooks/useCurrentUser";
+import useSleeping from "@/hooks/useSleeping";
+import { useEffect } from "react";
 
 export default function Timer({ isOpen }) {
   const { data: currentUser } = useCurrentUser();
-  // const [body, setBody] = useState();
+
+  const { data: sleepling } = useSleeping(currentUser && currentUser.id);
 
   const timeModal = useTimer();
   const [fellasleepValue, setFellAsleepValue] = useState(
     dayjs(Date().toLocaleString())
   );
-  const [wokeUpValue, setWokeUpValue] = useState(dayjs());
+  const [wokeUpValue, setWokeUpValue] = useState();
   const [note, setNote] = useState("");
 
   const handleClose = () => {
     timeModal.onClose();
   };
+  // console.log(sleepling[0]);
+
+  useEffect(() => {
+    if (sleepling && !sleepling[0].woke_up) {
+      setFellAsleepValue(dayjs(sleepling[0].fell_asleep));
+    }
+  }, [sleepling]);
 
   const handleCheck = useCallback(async () => {
     try {

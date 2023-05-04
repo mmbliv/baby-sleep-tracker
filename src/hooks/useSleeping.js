@@ -1,6 +1,6 @@
 import useSWR from "swr";
 
-import fetcher from "@/libs/fetcher";
+import fetcher from "../../libs/fetcher";
 
 const useSleeping = (userId) => {
   const url = `/api/sleeping?userId=${userId}`;
@@ -14,4 +14,4 @@ const useSleeping = (userId) => {
   };
 };
 
-export default usePosts;
+export default useSleeping;

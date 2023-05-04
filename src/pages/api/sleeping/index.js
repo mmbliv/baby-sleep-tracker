@@ -4,7 +4,7 @@ import serverAuth from "../../../../libs/serverAuth";
 import prisma from "../../../../libs/prismadb";
 
 export default async function handler(req, res) {
-  if (req.method !== "POST" && req.method !== "GET") {
+  if (req.method !== "POST" && req.method !== "GET" && req.method !== "PATCH") {
     return res.status(405).end();
   }
 
@@ -12,7 +12,7 @@ export default async function handler(req, res) {
     if (req.method === "POST") {
       const { currentUser } = await serverAuth(req, res);
       const { body } = req.body;
-      console.log(req.body);
+      // console.log(req.body);
       const sleeping = await prisma.sleeping.create({
         data: {
           ...body,
@@ -26,7 +26,7 @@ export default async function handler(req, res) {
     if (req.method === "GET") {
       const { userId } = req.query;
 
-      console.log({ userId });
+      // console.log(req.query);
 
       let sleeping;
 
@@ -49,5 +49,24 @@ export default async function handler(req, res) {
   } catch (error) {
     console.log(error);
     return res.status(400).end();
+  }
+
+  if (req.method === "PATCH") {
+    try {
+      const { currentUser } = await serverAuth(req, res);
+      const { body } = req.body;
+      const updatedSleeping = await prisma.sleeping.update({
+        where: {
+          id: body.id,
+          userId: currentUser.id,
+        },
+        data: {
+          woke_up: body.woke_up,
+        },
+      });
+    } catch (err) {
+      console.log(err);
+      return res.status(400).end();
+    }
   }
 }
