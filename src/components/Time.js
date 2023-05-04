@@ -7,12 +7,15 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import TextField from "@mui/material/TextField";
 import { AiFillCloseCircle, AiFillCheckCircle } from "react-icons/ai";
-export default function Timer() {
+
+export default function Timer({ isOpen }) {
   const [fellasleepValue, setFellAsleepValue] = useState(
     dayjs(Date().toLocaleString())
   );
   const [wokeUpValue, setWokeUpValue] = useState(dayjs());
-
+  if (!isOpen) {
+    return null;
+  }
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <div className=" flex flex-col w-full items-center gap-2 h-[calc(100vh_-_157px)] pt-10">

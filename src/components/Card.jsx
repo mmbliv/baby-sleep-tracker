@@ -2,15 +2,22 @@ import useCurrentUser from "@/hooks/useCurrentUser";
 import React, { useCallback } from "react";
 // import LoginModal from "./Modals/LoginModal";
 import useLoginModal from "@/hooks/useLoginModal";
+import useTimer from "@/hooks/useTimer";
 
 const Card = (props) => {
   const { data: currentUser } = useCurrentUser();
-  const loginModel = useLoginModal();
+  const loginModal = useLoginModal();
+  const timerModal = useTimer();
   const handleClick = useCallback(() => {
     if (!currentUser) {
-      loginModel.onOpen();
+      loginModal.onOpen();
     }
-  }, [currentUser, loginModel]);
+    if (timerModal.isOpen) {
+      timerModal.onClose();
+    } else {
+      timerModal.onOpen();
+    }
+  }, [currentUser, loginModal, timerModal]);
   return (
     <div
       className="h-56 w-full flex items-center justify-center gap-2 bg-slate-100"

@@ -7,15 +7,17 @@ import Cards from "@/components/Cards";
 import { fetchAllData } from "@/utils/fetch";
 // import Time from "@/components/Time";
 import Timer from "@/components/Time";
+import useTimer from "@/hooks/useTimer";
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
+  const timeModal = useTimer();
   return (
     <main className={`h-screen`}>
       <Header />
       <div className={`flex flex-row`}>
         <Cards />
-        <Timer />
+        <Timer isOpen={timeModal.isOpen} />
       </div>
     </main>
   );
