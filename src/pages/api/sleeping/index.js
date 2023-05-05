@@ -12,6 +12,7 @@ export default async function handler(req, res) {
     if (req.method === "POST") {
       const { currentUser } = await serverAuth(req, res);
       const { body } = req.body;
+
       // console.log(req.body);
       const sleeping = await prisma.sleeping.create({
         data: {
@@ -55,15 +56,18 @@ export default async function handler(req, res) {
     try {
       const { currentUser } = await serverAuth(req, res);
       const { body } = req.body;
+      // console.log(body);
       const updatedSleeping = await prisma.sleeping.update({
         where: {
           id: body.id,
-          userId: currentUser.id,
+          // userId: currentUser.id,
         },
         data: {
           woke_up: body.woke_up,
+          note: body.note,
         },
       });
+      return res.status(200).json(updatedSleeping);
     } catch (err) {
       console.log(err);
       return res.status(400).end();

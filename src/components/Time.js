@@ -26,7 +26,7 @@ export default function Timer({ isOpen }) {
     dayjs(Date().toLocaleString())
   );
   const [wokeUpValue, setWokeUpValue] = useState();
-  const [note, setNote] = useState();
+  const [note, setNote] = useState("");
 
   const handleClose = () => {
     timeModal.onClose();
@@ -39,9 +39,13 @@ export default function Timer({ isOpen }) {
     } else {
       setFellAsleepValue(dayjs(Date().toLocaleString()));
       setWokeUpValue();
-      setNote();
+      setNote("");
     }
   }, [sleepling]);
+  // console.log(dayjs(fellasleepValue).format("YYYY-MM-DDTHH:mm:ss.SSS[Z]"));
+  // console.log(
+  //   dayjs(sleepling[0].fell_asleep).format("YYYY-MM-DDTHH:mm:ss.SSS[Z]")
+  // );
 
   const handleCheck = useCallback(async () => {
     if (
@@ -49,16 +53,16 @@ export default function Timer({ isOpen }) {
       !sleepling[0].woke_up &&
       wokeUpValue &&
       dayjs(fellasleepValue).format("YYYY-MM-DDTHH:mm:ss.SSS[Z]") ===
-        sleepling[0].fell_asleep
+        dayjs(sleepling[0].fell_asleep).format("YYYY-MM-DDTHH:mm:ss.SSS[Z]")
     ) {
       try {
         const url = "/api/sleeping";
         const body = {
           note: note,
+          id: sleepling[0].id,
           woke_up: wokeUpValue,
         };
         await axios.patch(url, { body });
-
         toast.success("data updated");
       } catch (err) {
         console.log(err);
@@ -71,7 +75,7 @@ export default function Timer({ isOpen }) {
           fell_asleep: fellasleepValue,
           woke_up: wokeUpValue,
         };
-
+        // console.log(fellasleepValue);
         await axios.post(url, { body });
 
         toast.success("data uploaded");
