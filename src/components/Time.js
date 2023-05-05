@@ -17,43 +17,72 @@ import { useEffect } from "react";
 export default function Timer({ isOpen }) {
   const { data: currentUser } = useCurrentUser();
 
-  const { data: sleepling } = useSleeping(currentUser && currentUser.id);
+  const { data: sleepling, mutate } = useSleeping(
+    currentUser && currentUser.id
+  );
 
   const timeModal = useTimer();
   const [fellasleepValue, setFellAsleepValue] = useState(
     dayjs(Date().toLocaleString())
   );
   const [wokeUpValue, setWokeUpValue] = useState();
-  const [note, setNote] = useState("");
+  const [note, setNote] = useState();
 
   const handleClose = () => {
     timeModal.onClose();
   };
-  // console.log(sleepling[0]);
 
   useEffect(() => {
     if (sleepling && !sleepling[0].woke_up) {
       setFellAsleepValue(dayjs(sleepling[0].fell_asleep));
+      setNote(sleepling[0].note);
+    } else {
+      setFellAsleepValue(dayjs(Date().toLocaleString()));
+      setWokeUpValue();
+      setNote();
     }
   }, [sleepling]);
 
   const handleCheck = useCallback(async () => {
-    try {
-      const url = "/api/sleeping";
-      const body = {
-        note: note,
-        fell_asleep: fellasleepValue,
-        woke_up: wokeUpValue,
-      };
+    if (
+      sleepling &&
+      !sleepling[0].woke_up &&
+      wokeUpValue &&
+      dayjs(fellasleepValue).format("YYYY-MM-DDTHH:mm:ss.SSS[Z]") ===
+        sleepling[0].fell_asleep
+    ) {
+      try {
+        const url = "/api/sleeping";
+        const body = {
+          note: note,
+          woke_up: wokeUpValue,
+        };
+        await axios.patch(url, { body });
 
-      await axios.post(url, { body });
+        toast.success("data updated");
+      } catch (err) {
+        console.log(err);
+      }
+    } else {
+      try {
+        const url = "/api/sleeping";
+        const body = {
+          note: note,
+          fell_asleep: fellasleepValue,
+          woke_up: wokeUpValue,
+        };
 
-      toast.success("data uploaded");
-    } catch (err) {
-      toast.error("something went wrong");
-      console.log(err);
+        await axios.post(url, { body });
+
+        toast.success("data uploaded");
+      } catch (err) {
+        toast.error("something went wrong");
+        console.log(err);
+      }
     }
-  }, [note, fellasleepValue, wokeUpValue]);
+    mutate();
+  }, [note, fellasleepValue, wokeUpValue, sleepling, mutate]);
+
   if (!isOpen) {
     return null;
   }

@@ -26,7 +26,7 @@ export default async function handler(req, res) {
     if (req.method === "GET") {
       const { userId } = req.query;
 
-      // console.log(req.query);
+      // console.log(userId);
 
       let sleeping;
 

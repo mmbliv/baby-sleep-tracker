@@ -3,9 +3,13 @@ import React, { useCallback } from "react";
 // import LoginModal from "./Modals/LoginModal";
 import useLoginModal from "@/hooks/useLoginModal";
 import useTimer from "@/hooks/useTimer";
+import useSleeping from "@/hooks/useSleeping";
 
 const Card = (props) => {
   const { data: currentUser } = useCurrentUser();
+  // const { data: sleepling, mutate } = useSleeping(
+  //   currentUser && currentUser.id
+  // );
   const loginModal = useLoginModal();
   const timerModal = useTimer();
   const handleClick = useCallback(() => {
@@ -17,6 +21,7 @@ const Card = (props) => {
     } else {
       timerModal.onOpen();
     }
+    // mutate();
   }, [currentUser, loginModal, timerModal]);
   return (
     <div
