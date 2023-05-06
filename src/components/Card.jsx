@@ -33,8 +33,6 @@ const Card = (props) => {
       setFellAsleep(false);
     }
   }, [props.data]);
-  console.log(props.data[0].woke_up);
-  console.log(props.data[0].fell_asleep);
   return (
     <div
       className="h-56 w-full flex items-center justify-center gap-2 bg-slate-100"
