@@ -9,6 +9,13 @@ import { fetchAllData } from "@/utils/fetch";
 import Timer from "@/components/Time";
 import useTimer from "@/hooks/useTimer";
 const inter = Inter({ subsets: ["latin"] });
+import TimeAgo from "javascript-time-ago";
+
+import en from "javascript-time-ago/locale/en.json";
+import ru from "javascript-time-ago/locale/ru.json";
+
+TimeAgo.addDefaultLocale(en);
+TimeAgo.addLocale(ru);
 
 export default function Home() {
   const timeModal = useTimer();
