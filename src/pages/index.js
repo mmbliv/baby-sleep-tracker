@@ -10,6 +10,7 @@ import Timer from "@/components/Time";
 import useTimer from "@/hooks/useTimer";
 const inter = Inter({ subsets: ["latin"] });
 import TimeAgo from "javascript-time-ago";
+import Data from "@/components/Data";
 
 import en from "javascript-time-ago/locale/en.json";
 import ru from "javascript-time-ago/locale/ru.json";
@@ -22,9 +23,10 @@ export default function Home() {
   return (
     <main className={`h-screen`}>
       <Header />
-      <div className={`flex flex-row`}>
+      <div className="flex flex-row w-full">
         <Cards />
         <Timer isOpen={timeModal.isOpen} />
+        <Data isOpen={timeModal.isOpen} />
       </div>
     </main>
   );

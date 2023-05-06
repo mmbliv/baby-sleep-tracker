@@ -92,7 +92,7 @@ export default function Timer({ isOpen }) {
   }
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <div className=" flex flex-col w-full items-center gap-2 h-[calc(100vh_-_157px)] pt-10">
+      <div className="flex flex-col w-2/3 items-center gap-2 h-[calc(100vh_-_157px)] pt-10">
         <DateTimePicker
           label="Fell asleep"
           value={fellasleepValue}
