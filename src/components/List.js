@@ -15,13 +15,13 @@ const List = (props) => {
   }, [props.data]);
   console.log(dateArr);
   return (
-    <div className="flex items-center">
-      <div className="flex flex-col items-center justify-center">
-        <p>{dateArr[0]}</p>
-        <p>{dateArr[2]}</p>
-        <p>{dateArr[1]}</p>
+    <div className="flex items-center gap-3 mt-3 border-2 border-gray-400 border-solid mx-6 px-3 rounded-lg ">
+      <div className="flex flex-col items-center justify-center py-2">
+        <p className=" m-0">{dateArr[0]}</p>
+        <p className=" m-0 text-4xl text-red-300">{dateArr[2]}</p>
+        <p className=" m-0">{dateArr[1]}</p>
       </div>
-      <div>|</div>
+      <div className=" text-8xl text-red-300">|</div>
     </div>
   );
 };
