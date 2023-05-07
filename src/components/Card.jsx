@@ -25,14 +25,15 @@ const Card = (props) => {
     }
     // mutate();
   }, [currentUser, loginModal, timerModal]);
-
+  // console.log(props.data, "))))))");
   useEffect(() => {
-    if (!props.data[0].woke_up) {
+    if (props.data && !props.data[0].woke_up) {
       setFellAsleep(true);
     } else {
       setFellAsleep(false);
     }
   }, [props.data]);
+  // console.log(currentUser);
   return (
     <div
       className="h-56 w-full flex items-center justify-center gap-2 bg-slate-100"
@@ -42,7 +43,7 @@ const Card = (props) => {
         <props.icon />
       </div>
       <div>{!props.data && "sleeping"}</div>
-      {fellAsleep ? (
+      {fellAsleep && currentUser ? (
         <div>
           <p>
             Right now{" "}
@@ -54,15 +55,19 @@ const Card = (props) => {
         </div>
       ) : (
         <div>
-          <ReactTimeAgo date={props.data[0].fell_asleep} locale="en-US">
+          <ReactTimeAgo
+            date={props.data ? props.data[0].fell_asleep : 0}
+            locale="en-US"
+          >
             Right now
           </ReactTimeAgo>
           <p>
             Slept{" "}
-            {dayjs(props.data[0].woke_up).diff(
-              dayjs(props.data[0].fell_asleep),
-              "minute"
-            )}{" "}
+            {props.data &&
+              dayjs(props.data[0].woke_up).diff(
+                dayjs(props.data[0].fell_asleep),
+                "minute"
+              )}{" "}
             min
           </p>
         </div>

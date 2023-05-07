@@ -11,6 +11,8 @@ import useTimer from "@/hooks/useTimer";
 const inter = Inter({ subsets: ["latin"] });
 import TimeAgo from "javascript-time-ago";
 import Data from "@/components/Data";
+import useCurrentUser from "@/hooks/useCurrentUser";
+// import { useSession } from "next-auth/react";
 
 import en from "javascript-time-ago/locale/en.json";
 import ru from "javascript-time-ago/locale/ru.json";
@@ -19,6 +21,8 @@ TimeAgo.addDefaultLocale(en);
 TimeAgo.addLocale(ru);
 
 export default function Home() {
+  // const { data: currentUser, error } = useCurrentUser();
+  // const { data } = useSession();
   const timeModal = useTimer();
   return (
     <main className={`h-screen`}>

@@ -13,7 +13,6 @@ export default async function handler(req, res) {
       const { currentUser } = await serverAuth(req, res);
       const { body } = req.body;
 
-      // console.log(req.body);
       const sleeping = await prisma.sleeping.create({
         data: {
           ...body,
@@ -26,9 +25,7 @@ export default async function handler(req, res) {
 
     if (req.method === "GET") {
       const { userId } = req.query;
-
-      // console.log(userId);
-
+      // console.log(userId, "))))))");
       let sleeping;
 
       if (userId && typeof userId === "string") {
@@ -38,7 +35,6 @@ export default async function handler(req, res) {
           },
           include: {
             user: true,
-            // comments: true,
           },
           orderBy: {
             createdAt: "desc",
@@ -56,11 +52,9 @@ export default async function handler(req, res) {
     try {
       const { currentUser } = await serverAuth(req, res);
       const { body } = req.body;
-      // console.log(body);
       const updatedSleeping = await prisma.sleeping.update({
         where: {
           id: body.id,
-          // userId: currentUser.id,
         },
         data: {
           woke_up: body.woke_up,

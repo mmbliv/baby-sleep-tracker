@@ -13,5 +13,7 @@ export function getDailyData(sleepingData) {
       result[date].push(i);
     }
   }
-  return result;
+  const arr = Object.entries(result);
+  // console.log(arr);
+  return arr;
 }
