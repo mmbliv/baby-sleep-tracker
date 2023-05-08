@@ -97,21 +97,49 @@ export default function Timer({ isOpen }) {
         }
       }
     } else {
-      try {
-        const url = "/api/sleeping";
-        const body = {
-          note: note,
-          fell_asleep: fellasleepValue,
-          woke_up: wokeUpValue,
-        };
-        await axios.post(url, { body });
+      if (dayjs(wokeUpValue).date() !== dayjs(fellasleepValue).date()) {
+        try {
+          const year = dayjs(fellasleepValue).year();
+          const month = dayjs(fellasleepValue).month() + 1;
+          const day = dayjs(fellasleepValue).date();
+          const hour = dayjs(wokeUpValue).hour();
+          const min = dayjs(wokeUpValue).minute();
+          const url = "/api/sleeping";
+          const bodyA = {
+            note: note,
+            fell_asleep: fellasleepValue,
+            woke_up: dayjs(`${year}-${month}-${day} 23:59:59`),
+          };
+          const bodyB = {
+            note: note,
+            fell_asleep: dayjs(`${year}-${month}-${day} 24:00:00`),
+            woke_up: dayjs(`${year}-${month}-${day + 1} ${hour}:${min}:00`),
+          };
+          console.log(bodyA);
+          await axios.post(url, { body: bodyB });
+          await axios.post(url, { body: bodyA });
+          toast.success("data overnight");
+        } catch (err) {
+          console.log(err);
+        }
+      } else {
+        try {
+          const url = "/api/sleeping";
+          const body = {
+            note: note,
+            fell_asleep: fellasleepValue,
+            woke_up: wokeUpValue,
+          };
+          await axios.post(url, { body });
 
-        toast.success("data uploaded");
-      } catch (err) {
-        toast.error("something went wrong");
-        console.log(err);
+          toast.success("data uploaded");
+        } catch (err) {
+          toast.error("something went wrong");
+          console.log(err);
+        }
       }
     }
+
     mutate();
   }, [note, fellasleepValue, wokeUpValue, sleepling, mutate]);
 
