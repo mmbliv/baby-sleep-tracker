@@ -12,7 +12,6 @@ export default async function handler(req, res) {
     if (req.method === "POST") {
       const { currentUser } = await serverAuth(req, res);
       const { body } = req.body;
-
       const sleeping = await prisma.sleeping.create({
         data: {
           ...body,
@@ -25,7 +24,6 @@ export default async function handler(req, res) {
 
     if (req.method === "GET") {
       const { userId } = req.query;
-      // console.log(userId, "))))))");
       let sleeping;
 
       if (userId && typeof userId === "string") {

@@ -10,13 +10,14 @@ const Lists = () => {
   const { data: currentUser } = useCurrentUser();
   const [dailyData, setDailyData] = useState();
   const { data: sleeping } = useSleeping(currentUser && currentUser.id);
+  // console.log(currentUser);
 
   useEffect(() => {
     if (sleeping) {
       setDailyData(getDailyData(sleeping));
     }
   }, [sleeping]);
-  console.log(dailyData);
+  // console.log(dailyData);
   return (
     <div>
       {dailyData &&

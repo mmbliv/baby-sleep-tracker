@@ -33,7 +33,7 @@ export default function Timer({ isOpen }) {
   };
 
   useEffect(() => {
-    if (sleepling && !sleepling[0].woke_up) {
+    if (sleepling && sleepling[0] && !sleepling[0].woke_up) {
       setFellAsleepValue(dayjs(sleepling[0].fell_asleep));
       setNote(sleepling[0].note);
     } else {
@@ -46,26 +46,55 @@ export default function Timer({ isOpen }) {
   // console.log(
   //   dayjs(sleepling[0].fell_asleep).format("YYYY-MM-DDTHH:mm:ss.SSS[Z]")
   // );
-
+  // console.log(dayjs(wokeUpValue).hour(), "99999");
+  // console.log(fellasleepValue);
   const handleCheck = useCallback(async () => {
     if (
       sleepling &&
+      sleepling[0] &&
       !sleepling[0].woke_up &&
       wokeUpValue &&
       dayjs(fellasleepValue).format("YYYY-MM-DDTHH:mm:ss.SSS[Z]") ===
         dayjs(sleepling[0].fell_asleep).format("YYYY-MM-DDTHH:mm:ss.SSS[Z]")
     ) {
-      try {
-        const url = "/api/sleeping";
-        const body = {
-          note: note,
-          id: sleepling[0].id,
-          woke_up: wokeUpValue,
-        };
-        await axios.patch(url, { body });
-        toast.success("data updated");
-      } catch (err) {
-        console.log(err);
+      if (
+        dayjs(wokeUpValue).date() !== dayjs(sleepling[0].fell_asleep).date()
+      ) {
+        try {
+          const year = dayjs(sleepling[0].fell_asleep).year();
+          const month = dayjs(sleepling[0].fell_asleep).month() + 1;
+          const day = dayjs(sleepling[0].fell_asleep).date();
+          const hour = dayjs(wokeUpValue).hour();
+          const min = dayjs(wokeUpValue).minute();
+          const url = "/api/sleeping";
+          const bodyA = {
+            note: note,
+            id: sleepling[0].id,
+            woke_up: dayjs(`${year}-${month}-${day} 23:59:59`),
+          };
+          const bodyB = {
+            fell_asleep: dayjs(`${year}-${month}-${day} 24:00:00`),
+            woke_up: dayjs(`${year}-${month}-${day + 1} ${hour}:${min}:00`),
+          };
+          await axios.post(url, { body: bodyB });
+          await axios.patch(url, { body: bodyA });
+          toast.success("data overnight");
+        } catch (err) {
+          console.log(err);
+        }
+      } else {
+        try {
+          const url = "/api/sleeping";
+          const body = {
+            note: note,
+            id: sleepling[0].id,
+            woke_up: wokeUpValue,
+          };
+          await axios.patch(url, { body });
+          toast.success("data updated");
+        } catch (err) {
+          console.log(err);
+        }
       }
     } else {
       try {
@@ -75,7 +104,6 @@ export default function Timer({ isOpen }) {
           fell_asleep: fellasleepValue,
           woke_up: wokeUpValue,
         };
-        // console.log(fellasleepValue);
         await axios.post(url, { body });
 
         toast.success("data uploaded");

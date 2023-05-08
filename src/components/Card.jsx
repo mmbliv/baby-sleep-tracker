@@ -27,13 +27,51 @@ const Card = (props) => {
   }, [currentUser, loginModal, timerModal]);
   // console.log(props.data, "))))))");
   useEffect(() => {
-    if (props.data && !props.data[0].woke_up) {
+    if (props.data && props.data[0] && !props.data[0].woke_up) {
       setFellAsleep(true);
     } else {
       setFellAsleep(false);
     }
   }, [props.data]);
   // console.log(currentUser);
+
+  function helper() {
+    if (fellAsleep && currentUser) {
+      return (
+        <div>
+          <p>
+            Right now{" "}
+            <span>
+              <GiNightSleep />
+            </span>
+          </p>
+          <p>Fell asleep</p>
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <ReactTimeAgo
+            date={props.data && props.data[0] ? props.data[0].fell_asleep : 0}
+            locale="en-US"
+          >
+            Right now
+          </ReactTimeAgo>
+          <p>
+            Slept{" "}
+            {props.data &&
+              props.data[0] &&
+              dayjs(props.data[0].woke_up).diff(
+                dayjs(props.data[0].fell_asleep),
+                "minute"
+              )}{" "}
+            min
+          </p>
+        </div>
+      );
+    }
+  }
+  // console.log(props.data);
   return (
     <div
       className="h-56 w-full flex items-center justify-center gap-2 bg-slate-100"
@@ -42,7 +80,10 @@ const Card = (props) => {
       <div>
         <props.icon />
       </div>
-      <div>{!props.data && "sleeping"}</div>
+
+      {!props.data?.length ? <div>sleeping</div> : helper()}
+      {/* <div>{!props.data && "sleeping"}</div>
+
       {fellAsleep && currentUser ? (
         <div>
           <p>
@@ -56,7 +97,7 @@ const Card = (props) => {
       ) : (
         <div>
           <ReactTimeAgo
-            date={props.data ? props.data[0].fell_asleep : 0}
+            date={props.data && props.data[0] ? props.data[0].fell_asleep : 0}
             locale="en-US"
           >
             Right now
@@ -64,6 +105,7 @@ const Card = (props) => {
           <p>
             Slept{" "}
             {props.data &&
+              props.data[0] &&
               dayjs(props.data[0].woke_up).diff(
                 dayjs(props.data[0].fell_asleep),
                 "minute"
@@ -71,7 +113,38 @@ const Card = (props) => {
             min
           </p>
         </div>
-      )}
+      )} */}
+
+      {/* {fellAsleep && currentUser ? (
+        <div>
+          <p>
+            Right now{" "}
+            <span>
+              <GiNightSleep />
+            </span>
+          </p>
+          <p>Fell asleep</p>
+        </div>
+      ) : (
+        <div>
+          <ReactTimeAgo
+            date={props.data && props.data[0] ? props.data[0].fell_asleep : 0}
+            locale="en-US"
+          >
+            Right now
+          </ReactTimeAgo>
+          <p>
+            Slept{" "}
+            {props.data &&
+              props.data[0] &&
+              dayjs(props.data[0].woke_up).diff(
+                dayjs(props.data[0].fell_asleep),
+                "minute"
+              )}{" "}
+            min
+          </p>
+        </div>
+      )} */}
     </div>
   );
 };
