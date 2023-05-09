@@ -12,3 +12,4 @@ const generateWeekLabel = (today) => {
 };
 
 // generateWeekLabel("Sun");
+export default generateWeekLabel;

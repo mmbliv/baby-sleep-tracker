@@ -9,8 +9,12 @@ import {
   Legend,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
-import faker from "faker";
+import { faker } from "@faker-js/faker";
 import useSleeping from "@/hooks/useSleeping";
+import useCurrentUser from "@/hooks/useCurrentUser";
+import dayjs from "dayjs";
+import { CiCloudMoon } from "react-icons/ci";
+import generateWeekLabel from "../../libs/generateWeekLabel";
 
 ChartJS.register(
   CategoryScale,
@@ -29,31 +33,48 @@ export const options = {
     },
     title: {
       display: true,
-      text: "Chart.js Bar Chart",
+      text: "Hours",
+    },
+  },
+  scales: {
+    x: {
+      stacked: true,
+    },
+    y: {
+      stacked: true,
     },
   },
 };
 
-const labels = ["January", "February", "March", "April", "May", "June", "July"];
-
-export const data = {
-  labels,
-  datasets: [
-    {
-      label: "Dataset 1",
-      data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
-      backgroundColor: "rgba(255, 99, 132, 0.5)",
-    },
-    {
-      label: "Dataset 2",
-      data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
-      backgroundColor: "rgba(53, 162, 235, 0.5)",
-    },
-  ],
-};
-
 const Hours = () => {
-  return <Bar options={options} data={data} />;
+  const { data: currentUser } = useCurrentUser();
+
+  const { data: sleepling, mutate } = useSleeping(
+    currentUser && currentUser.id
+  );
+  const labels = generateWeekLabel(dayjs(sleepling[0].woke_up).format("ddd"));
+  const data = {
+    labels,
+    datasets: [
+      {
+        label: "day",
+        data: labels.map(() => faker.datatype.number({ min: 0, max: 12 })),
+        backgroundColor: "rgba(255, 99, 132, 0.5)",
+      },
+      {
+        label: "night",
+        data: labels.map(() => faker.datatype.number({ min: 0, max: 12 })),
+        backgroundColor: "rgb(75, 192, 192)",
+      },
+    ],
+  };
+
+  return (
+    <>
+      <Bar options={options} data={data} />
+      {/* <div>chart</div> */}
+    </>
+  );
 };
 
 export default Hours;
