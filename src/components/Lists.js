@@ -7,7 +7,7 @@ import { getDailyData } from "../../libs/getDailyData";
 import { useEffect } from "react";
 // import addSleepTime from "../../libs/addSleepTime";
 
-const Lists = () => {
+const Lists = (props) => {
   const { data: currentUser } = useCurrentUser();
   const [dailyData, setDailyData] = useState();
   const { data: sleeping } = useSleeping(currentUser && currentUser.id);
@@ -19,14 +19,15 @@ const Lists = () => {
     }
   }, [sleeping]);
   // console.log(dailyData);
-  return (
-    <div>
-      {dailyData &&
-        dailyData.map((d, i) => {
-          return <List key={i} data={d} />;
-        })}
-    </div>
-  );
+  if (props.show)
+    return (
+      <div>
+        {dailyData &&
+          dailyData.map((d, i) => {
+            return <List key={i} data={d} />;
+          })}
+      </div>
+    );
 };
 
 export default Lists;
