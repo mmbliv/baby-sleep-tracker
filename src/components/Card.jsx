@@ -26,6 +26,7 @@ const Card = (props) => {
     }
     // mutate();
   }, [currentUser, loginModal, timerModal]);
+
   // console.log(props.data, "))))))");
   useEffect(() => {
     if (props.data && props.data[0] && !props.data[0].woke_up) {
@@ -36,6 +37,18 @@ const Card = (props) => {
   }, [props.data]);
   // console.log(currentUser);
 
+  const formatter = (value, unit, suffix) => {
+    if (unit === "second") {
+      return "just now";
+    } else if (unit === "minute") {
+      return `${value} min ${suffix}`;
+    } else if (unit === "hour") {
+      return `${value} hr ${suffix}`;
+    } else {
+      return `${value} ${unit} ${suffix}`;
+    }
+  };
+  // console.log(props.data[0].fell_asleep);
   function helper() {
     if (fellAsleep && currentUser) {
       return (
@@ -54,10 +67,10 @@ const Card = (props) => {
         <div>
           <ReactTimeAgo
             date={props.data && props.data[0] ? props.data[0].fell_asleep : 0}
-            locale="en-US"
-          >
-            Right now
-          </ReactTimeAgo>
+            // locale="en-US"
+            // date={new Date(Date.now() - (1 * 60 * 60 * 1000 + 30 * 60 * 1000))}
+            // formatter={formatter}
+          ></ReactTimeAgo>
           <p>
             Slept{" "}
             {props.data &&
@@ -73,6 +86,7 @@ const Card = (props) => {
       );
     }
   }
+
   // console.log(props.data);
   return (
     <div
