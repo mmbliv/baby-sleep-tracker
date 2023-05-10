@@ -15,6 +15,9 @@ import useCurrentUser from "@/hooks/useCurrentUser";
 import dayjs from "dayjs";
 import { CiCloudMoon } from "react-icons/ci";
 import generateWeekLabel from "../../libs/generateWeekLabel";
+import { getDailyData } from "../../libs/getDailyData";
+import { useState, useEffect } from "react";
+import calculateNap from "../../libs/calculateNap";
 
 ChartJS.register(
   CategoryScale,
@@ -49,21 +52,39 @@ export const options = {
 const Hours = () => {
   const { data: currentUser } = useCurrentUser();
 
-  const { data: sleepling, mutate } = useSleeping(
-    currentUser && currentUser.id
-  );
-  const labels = generateWeekLabel(dayjs(sleepling[0].woke_up).format("ddd"));
+  const { data: sleeping, mutate } = useSleeping(currentUser && currentUser.id);
+
+  const [dailyData, setDailyData] = useState();
+
+  useEffect(() => {
+    if (sleeping) {
+      setDailyData(getDailyData(sleeping));
+    }
+  }, [sleeping]);
+  //   console.log(sleeping);
+  //   console.log(dailyData[0][0].split(",")[0]);
+
+  const labels = generateWeekLabel(dayjs().format("ddd"));
   const data = {
     labels,
     datasets: [
       {
         label: "day",
-        data: labels.map(() => faker.datatype.number({ min: 0, max: 12 })),
+        data: labels.map((l, i) => {
+          let data = 0;
+          if (dailyData)
+            for (let j of dailyData) {
+              if (j[0].split(",")[0] === l) {
+                data = calculateNap(j[1])[1];
+              }
+            }
+          return data;
+        }),
         backgroundColor: "rgba(255, 99, 132, 0.5)",
       },
       {
         label: "night",
-        data: labels.map(() => faker.datatype.number({ min: 0, max: 12 })),
+        data: labels.map(() => faker.datatype.number({ min: 0, max: 24 })),
         backgroundColor: "rgb(75, 192, 192)",
       },
     ],

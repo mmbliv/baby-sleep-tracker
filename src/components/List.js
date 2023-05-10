@@ -34,7 +34,7 @@ const List = (props) => {
           {props.data[1].length} times
         </p>
         <p>
-          Nap {time}, {times} times
+          Nap {changeMinToHour(time)}, {times} times
         </p>
       </div>
     </div>

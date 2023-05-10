@@ -4,6 +4,8 @@ import changeMinToHour from "./changeMinIntoHour";
 const calculateNap = (dataArr) => {
   let napTimes = 0;
   let napTime = 0;
+  let nightSleepTimes = 0;
+  let nightSleepTime = 0;
   for (let i of dataArr) {
     if (
       dayjs(i.fell_asleep).format("HH") > 8 &&
@@ -11,8 +13,11 @@ const calculateNap = (dataArr) => {
     ) {
       napTimes += 1;
       napTime += dayjs(i.woke_up).diff(dayjs(i.fell_asleep), "minute");
+    } else {
+      nightSleepTimes += 1;
+      nightSleepTime += dayjs(i.woke_up).diff(dayjs(i.fell_asleep), "minute");
     }
   }
-  return [napTimes, changeMinToHour(napTime)];
+  return [napTimes, napTime, nightSleepTimes, nightSleepTime];
 };
 export default calculateNap;
