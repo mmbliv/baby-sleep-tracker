@@ -70,12 +70,12 @@ const Hours = () => {
     datasets: [
       {
         label: "day",
-        data: labels.map((l, i) => {
+        data: labels.map((l) => {
           let data = 0;
           if (dailyData)
             for (let j of dailyData) {
               if (j[0].split(",")[0] === l) {
-                data = calculateNap(j[1])[1];
+                data = calculateNap(j[1])[1] / 60;
               }
             }
           return data;
@@ -84,7 +84,16 @@ const Hours = () => {
       },
       {
         label: "night",
-        data: labels.map(() => faker.datatype.number({ min: 0, max: 24 })),
+        data: labels.map((l) => {
+          let data = 0;
+          if (dailyData)
+            for (let j of dailyData) {
+              if (j[0].split(",")[0] === l) {
+                data = calculateNap(j[1])[3] / 60;
+              }
+            }
+          return data;
+        }),
         backgroundColor: "rgb(75, 192, 192)",
       },
     ],
