@@ -9,15 +9,14 @@ import {
   Legend,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
-import { faker } from "@faker-js/faker";
 import useSleeping from "@/hooks/useSleeping";
 import useCurrentUser from "@/hooks/useCurrentUser";
 import dayjs from "dayjs";
-import { CiCloudMoon } from "react-icons/ci";
 import generateWeekLabel from "../../libs/generateWeekLabel";
 import { getDailyData } from "../../libs/getDailyData";
 import { useState, useEffect } from "react";
 import calculateNap from "../../libs/calculateNap";
+// import { options } from "./Hours";
 
 ChartJS.register(
   CategoryScale,
@@ -36,7 +35,7 @@ const options = {
     },
     title: {
       display: true,
-      text: "Hours",
+      text: "Times",
     },
   },
   scales: {
@@ -49,7 +48,7 @@ const options = {
   },
 };
 
-const Hours = () => {
+const Times = () => {
   const { data: currentUser } = useCurrentUser();
 
   const { data: sleeping, mutate } = useSleeping(currentUser && currentUser.id);
@@ -75,7 +74,7 @@ const Hours = () => {
           if (dailyData)
             for (let j of dailyData) {
               if (j[0].split(",")[0] === l) {
-                data = calculateNap(j[1])[1] / 60;
+                data = calculateNap(j[1])[0];
               }
             }
           return data;
@@ -89,7 +88,7 @@ const Hours = () => {
           if (dailyData)
             for (let j of dailyData) {
               if (j[0].split(",")[0] === l) {
-                data = calculateNap(j[1])[3] / 60;
+                data = calculateNap(j[1])[2];
               }
             }
           return data;
@@ -107,4 +106,4 @@ const Hours = () => {
   );
 };
 
-export default Hours;
+export default Times;
