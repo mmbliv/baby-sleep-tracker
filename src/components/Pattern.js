@@ -18,7 +18,13 @@ const options = {
   responsive: true,
   plugins: {
     legend: {
-      position: "top",
+      //   position: "top",
+      display: true,
+      labels: {
+        filter: function (item, chart) {
+          return item.text !== undefined;
+        },
+      },
     },
     title: {
       display: true,
@@ -60,6 +66,20 @@ const Pattern = () => {
           return [random.real(-100, 100), random.real(-100, 100)];
         }),
         backgroundColor: "rgba(255, 99, 132, 0.5)",
+      },
+      {
+        // label: "day",
+        data: labels.map(() => {
+          return [random.real(-100, 100), random.real(-100, 100)];
+        }),
+        backgroundColor: "rgba(255, 99, 132, 0.5)",
+      },
+      {
+        // label: "night",
+        data: labels.map(() => {
+          return [random.real(-100, 100), random.real(-100, 100)];
+        }),
+        backgroundColor: "rgb(75, 192, 192)",
       },
       {
         label: "night",
