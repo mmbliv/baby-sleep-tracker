@@ -30,6 +30,7 @@
     "next": "13.3.1",
     "next-auth": "^4.22.1",
     "postcss": "8.4.23",
+    "random-js": "^2.1.0",
     "react": "18.2.0",
     "react-chartjs-2": "^5.2.0",
     "react-dom": "18.2.0",
@@ -38,6 +39,7 @@
     "react-time-ago": "^7.2.1",
     "swr": "^2.1.5",
     "tailwindcss": "3.3.2",
+    "utils": "^0.3.1",
     "zustand": "^4.3.7"
   },
   "devDependencies": {
