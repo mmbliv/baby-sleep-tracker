@@ -10,6 +10,7 @@ import { useState, useEffect } from "react";
 import calculateNap from "../../libs/calculateNap";
 // import { options } from "./Hours";
 import { Random } from "random-js";
+import { getTheLengthOfDataset } from "../../libs/calculateSleepingRange";
 const random = new Random();
 
 ChartJS.register(...registerables);
@@ -53,9 +54,9 @@ const Pattern = () => {
       setDailyData(getDailyData(sleeping));
     }
   }, [sleeping]);
-  //   console.log(sleeping);
+  console.log(dailyData);
   //   console.log(dailyData[0][0].split(",")[0]);
-
+  console.log(getTheLengthOfDataset(dailyData));
   const labels = generateWeekLabel(dayjs().format("ddd"));
   const data = {
     labels,
