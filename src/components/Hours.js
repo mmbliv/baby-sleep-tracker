@@ -33,6 +33,7 @@ const options = {
   plugins: {
     legend: {
       position: "top",
+      //   reverse: true,
     },
     title: {
       display: true,

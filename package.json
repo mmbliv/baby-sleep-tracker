@@ -21,6 +21,7 @@
     "axios": "^1.4.0",
     "bcrypt": "^5.1.0",
     "chart.js": "^4.3.0",
+    "chartjs-adapter-dayjs-4": "^1.0.4",
     "cookie": "^0.5.0",
     "dayjs": "^1.11.7",
     "eslint": "8.39.0",

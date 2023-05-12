@@ -8,10 +8,11 @@ import generateWeekLabel from "../../libs/generateWeekLabel";
 import { getDailyData } from "../../libs/getDailyData";
 import { useState, useEffect } from "react";
 import calculateNap from "../../libs/calculateNap";
-// import { options } from "./Hours";
-import { Random } from "random-js";
-import { getTheLengthOfDataset } from "../../libs/calculateSleepingRange";
-const random = new Random();
+import "chartjs-adapter-dayjs-4/dist/chartjs-adapter-dayjs-4.esm";
+import {
+  getTheLengthOfDataset,
+  calculateSleepingRange,
+} from "../../libs/calculateSleepingRange";
 
 ChartJS.register(...registerables);
 
@@ -37,7 +38,19 @@ const options = {
       stacked: true,
     },
     y: {
-      stacked: true,
+      //   stacked: true,
+      //   type: "time",
+      //   time: {
+      //     displayFormats: {
+      //       hour: "hA",
+      //     },
+      //     unit: "hour",
+      //   },
+      //   ticks: {
+      //     min: "01:00:00",
+      //     max: "24:00:00",
+      //     stepSize: 60 * 60 * 1000,
+      //   },
     },
   },
 };
@@ -49,49 +62,19 @@ const Pattern = () => {
 
   const [dailyData, setDailyData] = useState();
 
+  const [dateSetsArr, setDataSets] = useState([]);
+
+  const labels = generateWeekLabel(dayjs().format("ddd"));
   useEffect(() => {
     if (sleeping) {
       setDailyData(getDailyData(sleeping));
     }
   }, [sleeping]);
-  console.log(dailyData);
-  //   console.log(dailyData[0][0].split(",")[0]);
-  console.log(getTheLengthOfDataset(dailyData));
-  const labels = generateWeekLabel(dayjs().format("ddd"));
+
   const data = {
     labels,
-    datasets: [
-      {
-        label: "day",
-        data: labels.map(() => {
-          return [random.real(-100, 100), random.real(-100, 100)];
-        }),
-        backgroundColor: "rgba(255, 99, 132, 0.5)",
-      },
-      {
-        // label: "day",
-        data: labels.map(() => {
-          return [random.real(-100, 100), random.real(-100, 100)];
-        }),
-        backgroundColor: "rgba(255, 99, 132, 0.5)",
-      },
-      {
-        // label: "night",
-        data: labels.map(() => {
-          return [random.real(-100, 100), random.real(-100, 100)];
-        }),
-        backgroundColor: "rgb(75, 192, 192)",
-      },
-      {
-        label: "night",
-        data: labels.map(() => {
-          return [random.real(-100, 100), random.real(-100, 100)];
-        }),
-        backgroundColor: "rgb(75, 192, 192)",
-      },
-    ],
+    datasets: calculateSleepingRange(dailyData, labels),
   };
-
   return (
     <>
       <Bar options={options} data={data} />
