@@ -8,7 +8,7 @@ const Data = (props) => {
   const { data: currentUser } = useCurrentUser();
   const [showChart, setShowChart] = useState(false);
   const [showLists, setShowLists] = useState(true);
-  const [showSevenDay, setShowSevenDay] = useState(false);
+  const [showSevenDay, setShowSevenDay] = useState(true);
   const [showThirtyDay, setShowThirtyDay] = useState(false);
   const [showWeekly, setShowWeekly] = useState(false);
   const [showMonthly, setShowMonthly] = useState(false);

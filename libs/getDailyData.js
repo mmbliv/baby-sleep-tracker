@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 
-export function getDailyData(sleepingData) {
+export function getDailyData(sleepingData, days) {
   //   console.log(dayjs("2023-05-05T18:26:59.000Z").format("ddd,MMM D"));
   const result = [];
   for (let i of sleepingData) {
@@ -13,7 +13,10 @@ export function getDailyData(sleepingData) {
       result[date].push(i);
     }
   }
-  const arr = Object.entries(result);
+  let arr = Object.entries(result);
+  if (arr.length > days) {
+    arr = arr.slice(0, days);
+  }
   // console.log(arr);
   return arr;
 }

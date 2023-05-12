@@ -1,6 +1,2 @@
-const arr = [1, 1, 1].map(() => {
-  for (let i = 0; i < 5; i++) {
-    return 7;
-  }
-});
-console.log(arr);
+a = [1, 2, 3, 4, 5].slice(0, 2);
+console.log(a);

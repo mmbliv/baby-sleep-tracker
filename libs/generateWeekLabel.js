@@ -14,6 +14,7 @@ export const generateWeekLabel = (today) => {
 // generateWeekLabel("Sun");
 // export default generateWeekLabel;
 export const generateMonthlyLabel = (today) => {
+  const options = { month: "short", day: "numeric" };
   const dates = [];
 
   // Add previous days
@@ -24,12 +25,14 @@ export const generateMonthlyLabel = (today) => {
     today.getDate() - numPreviousDays
   );
   for (let i = 0; i < numPreviousDays; i++) {
-    dates.push(previousDate.getDate());
+    const dateStr = previousDate.toLocaleDateString(undefined, options);
+    dates.push(dateStr);
     previousDate.setDate(previousDate.getDate() + 1);
   }
 
   // Add current day
-  dates.push(today.getDate());
+  const todayStr = today.toLocaleDateString(undefined, options);
+  dates.push(todayStr);
 
   return dates;
 };

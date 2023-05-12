@@ -22,6 +22,10 @@ import { getDailyData } from "../../libs/getDailyData";
 import { useState, useEffect } from "react";
 import calculateNap from "../../libs/calculateNap";
 import { day } from "javascript-time-ago/gradation";
+import {
+  getSevenDayWeeklyHoursDatasets,
+  getThirtyDayWeeklyHoursDatasets,
+} from "../../libs/getDatasets";
 
 ChartJS.register(
   CategoryScale,
@@ -63,56 +67,72 @@ const Hours = (props) => {
 
   const [dailyData, setDailyData] = useState();
 
+  const [datasets, setDatasets] = useState();
+
   useEffect(() => {
-    if (sleeping) {
-      setDailyData(getDailyData(sleeping));
+    if (sleeping && props.show === "sevenDay") {
+      setDailyData(getDailyData(sleeping, 7));
     }
-  }, [sleeping]);
+    if (sleeping && props.show === "thirtyDay") {
+      setDailyData(getDailyData(sleeping, 30));
+    }
+  }, [sleeping, props]);
 
   useEffect(() => {
     if (props.show === "sevenDay") {
       setLabels(generateWeekLabel(dayjs().format("ddd")));
     }
     if (props.show === "thirtyDay") {
-      setLabels(generateMonthlyLabel(dayjs()));
+      setLabels(generateMonthlyLabel(new Date()));
     }
   }, [props]);
-  console.log(props);
-  console.log(labels);
 
+  useEffect(() => {
+    if (props.show === "sevenDay" && labels && dailyData) {
+      setDatasets(getSevenDayWeeklyHoursDatasets(labels, dailyData));
+    }
+    if (props.show === "thirtyDay" && labels && dailyData) {
+      setDatasets(getThirtyDayWeeklyHoursDatasets(labels, dailyData));
+    }
+  }, [props, dailyData, labels]);
+
+  console.log(dailyData);
+  console.log(labels);
+  console.log(datasets);
   //   const labels = generateWeekLabel(dayjs().format("ddd"));
   const data = {
     labels,
-    datasets: [
-      {
-        label: "day",
-        data: labels?.map((l) => {
-          let data = 0;
-          if (dailyData)
-            for (let j of dailyData) {
-              if (j[0].split(",")[0] === l) {
-                data = calculateNap(j[1])[1] / 60;
-              }
-            }
-          return data;
-        }),
-        backgroundColor: "rgba(255, 99, 132, 0.5)",
-      },
-      {
-        label: "night",
-        data: labels?.map((l) => {
-          let data = 0;
-          if (dailyData)
-            for (let j of dailyData) {
-              if (j[0].split(",")[0] === l) {
-                data = calculateNap(j[1])[3] / 60;
-              }
-            }
-          return data;
-        }),
-        backgroundColor: "rgb(75, 192, 192)",
-      },
-    ],
+    datasets: datasets || [],
+    // datasets: [
+    //   {
+    //     label: "day",
+    //     data: labels?.map((l) => {
+    //       let data = 0;
+    //       if (dailyData)
+    //         for (let j of dailyData) {
+    //           if (j[0].split(",")[0] === l) {
+    //             data = calculateNap(j[1])[1] / 60;
+    //           }
+    //         }
+    //       return data;
+    //     }),
+    //     backgroundColor: "rgba(255, 99, 132, 0.5)",
+    //   },
+    //   {
+    //     label: "night",
+    //     data: labels?.map((l) => {
+    //       let data = 0;
+    //       if (dailyData)
+    //         for (let j of dailyData) {
+    //           if (j[0].split(",")[0] === l) {
+    //             data = calculateNap(j[1])[3] / 60;
+    //           }
+    //         }
+    //       return data;
+    //     }),
+    //     backgroundColor: "rgb(75, 192, 192)",
+    //   },
+    // ],
   };
   //   if (props.showSevenDay)
   return (

@@ -7,7 +7,6 @@ import { useEffect } from "react";
 
 const Charts = (props) => {
   const [chart, setChart] = useState();
-  console.log(props);
   useEffect(() => {
     if (props.showMonthly) {
       setChart("monthly");
@@ -22,7 +21,6 @@ const Charts = (props) => {
       setChart("thirtyDay");
     }
   }, [props]);
-  console.log(chart);
   if (props.show)
     return (
       <div>
