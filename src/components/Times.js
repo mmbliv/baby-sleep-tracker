@@ -12,7 +12,7 @@ import { Bar } from "react-chartjs-2";
 import useSleeping from "@/hooks/useSleeping";
 import useCurrentUser from "@/hooks/useCurrentUser";
 import dayjs from "dayjs";
-import generateWeekLabel from "../../libs/generateWeekLabel";
+import { generateWeekLabel } from "../../libs/generateWeekLabel";
 import { getDailyData } from "../../libs/getDailyData";
 import { useState, useEffect } from "react";
 import calculateNap from "../../libs/calculateNap";

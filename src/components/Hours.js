@@ -14,10 +14,14 @@ import useSleeping from "@/hooks/useSleeping";
 import useCurrentUser from "@/hooks/useCurrentUser";
 import dayjs from "dayjs";
 import { CiCloudMoon } from "react-icons/ci";
-import generateWeekLabel from "../../libs/generateWeekLabel";
+import {
+  generateWeekLabel,
+  generateMonthlyLabel,
+} from "../../libs/generateWeekLabel";
 import { getDailyData } from "../../libs/getDailyData";
 import { useState, useEffect } from "react";
 import calculateNap from "../../libs/calculateNap";
+import { day } from "javascript-time-ago/gradation";
 
 ChartJS.register(
   CategoryScale,
@@ -50,8 +54,10 @@ const options = {
   },
 };
 
-const Hours = () => {
+const Hours = (props) => {
   const { data: currentUser } = useCurrentUser();
+
+  const [labels, setLabels] = useState();
 
   const { data: sleeping, mutate } = useSleeping(currentUser && currentUser.id);
 
@@ -62,16 +68,25 @@ const Hours = () => {
       setDailyData(getDailyData(sleeping));
     }
   }, [sleeping]);
-  //   console.log(sleeping);
-  //   console.log(dailyData[0][0].split(",")[0]);
 
-  const labels = generateWeekLabel(dayjs().format("ddd"));
+  useEffect(() => {
+    if (props.show === "sevenDay") {
+      setLabels(generateWeekLabel(dayjs().format("ddd")));
+    }
+    if (props.show === "thirtyDay") {
+      setLabels(generateMonthlyLabel(dayjs()));
+    }
+  }, [props]);
+  console.log(props);
+  console.log(labels);
+
+  //   const labels = generateWeekLabel(dayjs().format("ddd"));
   const data = {
     labels,
     datasets: [
       {
         label: "day",
-        data: labels.map((l) => {
+        data: labels?.map((l) => {
           let data = 0;
           if (dailyData)
             for (let j of dailyData) {
@@ -85,7 +100,7 @@ const Hours = () => {
       },
       {
         label: "night",
-        data: labels.map((l) => {
+        data: labels?.map((l) => {
           let data = 0;
           if (dailyData)
             for (let j of dailyData) {
@@ -99,7 +114,7 @@ const Hours = () => {
       },
     ],
   };
-
+  //   if (props.showSevenDay)
   return (
     <>
       <Bar options={options} data={data} />
