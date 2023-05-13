@@ -65,3 +65,69 @@ export const getThirtyDayWeeklyHoursDatasets = (labels, dailyData) => {
     },
   ];
 };
+
+export const getSevenDayTimesDatasets = (labels, dailyData) => {
+  return [
+    {
+      label: "day",
+      data: labels.map((l) => {
+        let data = 0;
+        if (dailyData)
+          for (let j of dailyData) {
+            if (j[0].split(",")[0] === l) {
+              data = calculateNap(j[1])[0];
+            }
+          }
+        return data;
+      }),
+      backgroundColor: "rgba(255, 99, 132, 0.5)",
+    },
+    {
+      label: "night",
+      data: labels.map((l) => {
+        let data = 0;
+        if (dailyData)
+          for (let j of dailyData) {
+            if (j[0].split(",")[0] === l) {
+              data = calculateNap(j[1])[2];
+            }
+          }
+        return data;
+      }),
+      backgroundColor: "rgb(75, 192, 192)",
+    },
+  ];
+};
+
+export const getThirtyDayTimesDataset = (labels, dailyData) => {
+  return [
+    {
+      label: "day",
+      data: labels.map((l) => {
+        let data = 0;
+        if (dailyData)
+          for (let j of dailyData) {
+            if (j[0].split(",")[1] === l) {
+              data = calculateNap(j[1])[0];
+            }
+          }
+        return data;
+      }),
+      backgroundColor: "rgba(255, 99, 132, 0.5)",
+    },
+    {
+      label: "night",
+      data: labels.map((l) => {
+        let data = 0;
+        if (dailyData)
+          for (let j of dailyData) {
+            if (j[0].split(",")[1] === l) {
+              data = calculateNap(j[1])[2];
+            }
+          }
+        return data;
+      }),
+      backgroundColor: "rgb(75, 192, 192)",
+    },
+  ];
+};

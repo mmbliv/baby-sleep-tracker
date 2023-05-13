@@ -96,49 +96,16 @@ const Hours = (props) => {
     }
   }, [props, dailyData, labels]);
 
-  console.log(dailyData);
-  console.log(labels);
-  console.log(datasets);
-  //   const labels = generateWeekLabel(dayjs().format("ddd"));
+  //   console.log(dailyData);
+  //   console.log(labels);
+  //   console.log(datasets);
   const data = {
     labels,
     datasets: datasets || [],
-    // datasets: [
-    //   {
-    //     label: "day",
-    //     data: labels?.map((l) => {
-    //       let data = 0;
-    //       if (dailyData)
-    //         for (let j of dailyData) {
-    //           if (j[0].split(",")[0] === l) {
-    //             data = calculateNap(j[1])[1] / 60;
-    //           }
-    //         }
-    //       return data;
-    //     }),
-    //     backgroundColor: "rgba(255, 99, 132, 0.5)",
-    //   },
-    //   {
-    //     label: "night",
-    //     data: labels?.map((l) => {
-    //       let data = 0;
-    //       if (dailyData)
-    //         for (let j of dailyData) {
-    //           if (j[0].split(",")[0] === l) {
-    //             data = calculateNap(j[1])[3] / 60;
-    //           }
-    //         }
-    //       return data;
-    //     }),
-    //     backgroundColor: "rgb(75, 192, 192)",
-    //   },
-    // ],
   };
-  //   if (props.showSevenDay)
   return (
     <>
       <Bar options={options} data={data} />
-      {/* <div>chart</div> */}
     </>
   );
 };

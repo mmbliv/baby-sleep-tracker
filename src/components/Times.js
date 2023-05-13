@@ -16,6 +16,11 @@ import { generateWeekLabel } from "../../libs/generateWeekLabel";
 import { getDailyData } from "../../libs/getDailyData";
 import { useState, useEffect } from "react";
 import calculateNap from "../../libs/calculateNap";
+import { generateMonthlyLabel } from "../../libs/generateWeekLabel";
+import {
+  getSevenDayTimesDatasets,
+  getThirtyDayTimesDataset,
+} from "../../libs/getDatasets";
 // import { options } from "./Hours";
 
 ChartJS.register(
@@ -48,56 +53,88 @@ const options = {
   },
 };
 
-const Times = () => {
+const Times = (props) => {
   const { data: currentUser } = useCurrentUser();
 
   const { data: sleeping, mutate } = useSleeping(currentUser && currentUser.id);
 
   const [dailyData, setDailyData] = useState();
 
-  useEffect(() => {
-    if (sleeping) {
-      setDailyData(getDailyData(sleeping));
-    }
-  }, [sleeping]);
+  const [labels, setLabels] = useState();
+
+  const [datasets, setDatasets] = useState();
+
+  //   useEffect(() => {
+  //     if (sleeping) {
+  //       setDailyData(getDailyData(sleeping));
+  //     }
+  //   }, [sleeping]);
   //   console.log(sleeping);
   //   console.log(dailyData[0][0].split(",")[0]);
+  useEffect(() => {
+    if (sleeping && props.show === "sevenDay") {
+      setDailyData(getDailyData(sleeping, 7));
+    }
+    if (sleeping && props.show === "thirtyDay") {
+      setDailyData(getDailyData(sleeping, 30));
+    }
+  }, [sleeping, props]);
 
-  const labels = generateWeekLabel(dayjs().format("ddd"));
+  useEffect(() => {
+    if (props.show === "sevenDay") {
+      setLabels(generateWeekLabel(dayjs().format("ddd")));
+    }
+    if (props.show === "thirtyDay") {
+      setLabels(generateMonthlyLabel(new Date()));
+    }
+  }, [props]);
+
+  useEffect(() => {
+    if (props.show === "sevenDay" && labels && dailyData) {
+      setDatasets(getSevenDayTimesDatasets(labels, dailyData));
+    }
+    if (props.show === "thirtyDay" && labels && dailyData) {
+      setDatasets(getThirtyDayTimesDataset(labels, dailyData));
+    }
+  }, [props, dailyData, labels]);
+
+  //   const labels = generateWeekLabel(dayjs().format("ddd"));
   const data = {
     labels,
-    datasets: [
-      {
-        label: "day",
-        data: labels.map((l) => {
-          let data = 0;
-          if (dailyData)
-            for (let j of dailyData) {
-              if (j[0].split(",")[0] === l) {
-                data = calculateNap(j[1])[0];
-              }
-            }
-          return data;
-        }),
-        backgroundColor: "rgba(255, 99, 132, 0.5)",
-      },
-      {
-        label: "night",
-        data: labels.map((l) => {
-          let data = 0;
-          if (dailyData)
-            for (let j of dailyData) {
-              if (j[0].split(",")[0] === l) {
-                data = calculateNap(j[1])[2];
-              }
-            }
-          return data;
-        }),
-        backgroundColor: "rgb(75, 192, 192)",
-      },
-    ],
+    datasets: datasets || [],
+    // datasets: [
+    //   {
+    //     label: "day",
+    //     data: labels.map((l) => {
+    //       let data = 0;
+    //       if (dailyData)
+    //         for (let j of dailyData) {
+    //           if (j[0].split(",")[0] === l) {
+    //             data = calculateNap(j[1])[0];
+    //           }
+    //         }
+    //       return data;
+    //     }),
+    //     backgroundColor: "rgba(255, 99, 132, 0.5)",
+    //   },
+    //   {
+    //     label: "night",
+    //     data: labels.map((l) => {
+    //       let data = 0;
+    //       if (dailyData)
+    //         for (let j of dailyData) {
+    //           if (j[0].split(",")[0] === l) {
+    //             data = calculateNap(j[1])[2];
+    //           }
+    //         }
+    //       return data;
+    //     }),
+    //     backgroundColor: "rgb(75, 192, 192)",
+    //   },
+    // ],
   };
-
+  console.log(labels);
+  console.log(data.datasets);
   return (
     <>
       <Bar options={options} data={data} />
