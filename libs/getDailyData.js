@@ -20,3 +20,5 @@ export function getDailyData(sleepingData, days) {
   // console.log(arr);
   return arr;
 }
+
+export function getMonthlyData(sleepingData, yearAndMonth) {}

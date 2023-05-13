@@ -133,8 +133,6 @@ const Times = (props) => {
     //   },
     // ],
   };
-  console.log(labels);
-  console.log(data.datasets);
   return (
     <>
       <Bar options={options} data={data} />

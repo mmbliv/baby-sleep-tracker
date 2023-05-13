@@ -76,6 +76,9 @@ const Hours = (props) => {
     if (sleeping && props.show === "thirtyDay") {
       setDailyData(getDailyData(sleeping, 30));
     }
+    if (sleeping && props.show === "monthly") {
+      setDailyData();
+    }
   }, [sleeping, props]);
 
   useEffect(() => {
