@@ -9,23 +9,21 @@ import {
   Legend,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
-import { faker } from "@faker-js/faker";
 import useSleeping from "@/hooks/useSleeping";
 import useCurrentUser from "@/hooks/useCurrentUser";
 import dayjs from "dayjs";
-import { CiCloudMoon } from "react-icons/ci";
 import {
   generateWeekLabel,
   generateMonthlyLabel,
 } from "../../libs/generateWeekLabel";
 import { getDailyData } from "../../libs/getDailyData";
 import { useState, useEffect } from "react";
-import calculateNap from "../../libs/calculateNap";
-import { day } from "javascript-time-ago/gradation";
 import {
   getSevenDayWeeklyHoursDatasets,
   getThirtyDayWeeklyHoursDatasets,
 } from "../../libs/getDatasets";
+import useSleepingWithDate from "@/hooks/useSleepingWithDate";
+import { fetchData } from "../../libs/fetchdataWithDate";
 
 ChartJS.register(
   CategoryScale,
@@ -68,6 +66,19 @@ const Hours = (props) => {
   const [dailyData, setDailyData] = useState();
 
   const [datasets, setDatasets] = useState();
+
+  const [sleepingWithDate, setSleepingWithDate] = useState();
+
+  useEffect(() => {
+    const date = dayjs(props.date).format("YYYY-MM-DD");
+
+    if (props.show === "monthly") {
+      fetchData(currentUser.id, "monthly", "2023-05-11").then((d) =>
+        setSleepingWithDate(d)
+      );
+    }
+  }, [props, currentUser]);
+  console.log(sleepingWithDate);
 
   useEffect(() => {
     if (sleeping && props.show === "sevenDay") {

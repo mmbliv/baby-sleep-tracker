@@ -111,3 +111,4 @@ export const calculateSleepingRange = (sleepingData, labels) => {
   datasets[datasets.length - 1].label = "night";
   return datasets;
 };
+

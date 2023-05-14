@@ -42,12 +42,7 @@ export default function Timer({ isOpen }) {
       setNote("");
     }
   }, [sleepling]);
-  // console.log(dayjs(fellasleepValue).format("YYYY-MM-DDTHH:mm:ss.SSS[Z]"));
-  // console.log(
-  //   dayjs(sleepling[0].fell_asleep).format("YYYY-MM-DDTHH:mm:ss.SSS[Z]")
-  // );
-  // console.log(dayjs(wokeUpValue).hour(), "99999");
-  // console.log(fellasleepValue);
+
   const handleCheck = useCallback(async () => {
     if (
       sleepling &&
