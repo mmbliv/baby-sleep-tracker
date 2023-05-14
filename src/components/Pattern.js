@@ -7,6 +7,7 @@ import dayjs from "dayjs";
 import {
   generateWeekLabel,
   generateMonthlyLabel,
+  generateSpecificMonthlyLabel,
 } from "../../libs/generateWeekLabel";
 import { getDailyData } from "../../libs/getDailyData";
 import { useState, useEffect } from "react";
@@ -16,6 +17,7 @@ import {
   getSevenDaypatternDatasets,
   getThirtyDaypatternDatasets,
 } from "../../libs/getDatasets";
+import useSleepingWithDate from "@/hooks/useSleepingWithDate";
 
 ChartJS.register(...registerables);
 
@@ -69,12 +71,11 @@ const Pattern = (props) => {
 
   const [datasets, setDatasets] = useState();
 
-  //   const labels = generateWeekLabel(dayjs().format("ddd"));
-  //   useEffect(() => {
-  //     if (sleeping) {
-  //       setDailyData(getDailyData(sleeping));
-  //     }
-  //   }, [sleeping]);
+  const { data: sleepingWithDate } = useSleepingWithDate(
+    currentUser && currentUser.id,
+    props.show && props.show,
+    props.date && props.date
+  );
 
   useEffect(() => {
     if (sleeping && props.show === "sevenDay") {
@@ -83,7 +84,10 @@ const Pattern = (props) => {
     if (sleeping && props.show === "thirtyDay") {
       setDailyData(getDailyData(sleeping));
     }
-  }, [sleeping, props]);
+    if (sleeping && props.show === "monthly") {
+      setDailyData(getDailyData(sleepingWithDate));
+    }
+  }, [sleeping, props, sleepingWithDate]);
 
   useEffect(() => {
     if (props.show === "sevenDay") {
@@ -92,13 +96,24 @@ const Pattern = (props) => {
     if (props.show === "thirtyDay") {
       setLabels(generateMonthlyLabel(new Date()));
     }
+    if (props.show === "monthly" && props.date) {
+      setLabels(generateSpecificMonthlyLabel(props.date));
+    }
   }, [props]);
 
   useEffect(() => {
-    if (props.show === "sevenDay" && labels && dailyData) {
+    if (
+      (props.show === "sevenDay" || props.show === "weekly") &&
+      labels &&
+      dailyData
+    ) {
       setDatasets(getSevenDaypatternDatasets(dailyData, labels));
     }
-    if (props.show === "thirtyDay" && labels && dailyData) {
+    if (
+      (props.show === "thirtyDay" || props.show === "monthly") &&
+      labels &&
+      dailyData
+    ) {
       setDatasets(getThirtyDaypatternDatasets(dailyData, labels));
     }
   }, [props, dailyData, labels]);
