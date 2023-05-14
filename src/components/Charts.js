@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import { AiFillCloseCircle, AiFillCheckCircle } from "react-icons/ai";
+import dayjs from "dayjs";
 // import StackedRangeChart from "./Test";
 
 const Charts = (props) => {
@@ -26,6 +26,7 @@ const Charts = (props) => {
       setChart("thirtyDay");
     }
   }, [props]);
+
   if (props.show)
     return (
       <div>
@@ -35,7 +36,9 @@ const Charts = (props) => {
               <DatePicker
                 label="choose date"
                 value={date}
-                onChange={(newValue) => setDate(newValue)}
+                onChange={(newValue) =>
+                  setDate(dayjs(newValue).format("YYYY-MM-DD"))
+                }
                 className="w-1/3 "
               />
             </div>

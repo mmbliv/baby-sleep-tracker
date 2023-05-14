@@ -15,6 +15,7 @@ import dayjs from "dayjs";
 import {
   generateWeekLabel,
   generateMonthlyLabel,
+  generateSpecificMonthlyLabel,
 } from "../../libs/generateWeekLabel";
 import { getDailyData } from "../../libs/getDailyData";
 import { useState, useEffect } from "react";
@@ -72,25 +73,28 @@ const Hours = (props) => {
   useEffect(() => {
     const date = dayjs(props.date).format("YYYY-MM-DD");
 
-    if (props.show === "monthly") {
-      fetchData(currentUser.id, "monthly", "2023-05-11").then((d) =>
+    if (props.show === "monthly" && props.date) {
+      fetchData(currentUser.id, "monthly", props.date).then((d) =>
         setSleepingWithDate(d)
       );
     }
   }, [props, currentUser]);
+  console.log(props.date);
   console.log(sleepingWithDate);
+  console.log(dailyData);
+  console.log(datasets);
 
   useEffect(() => {
     if (sleeping && props.show === "sevenDay") {
-      setDailyData(getDailyData(sleeping, 7));
+      setDailyData(getDailyData(sleeping));
     }
     if (sleeping && props.show === "thirtyDay") {
-      setDailyData(getDailyData(sleeping, 30));
+      setDailyData(getDailyData(sleeping));
     }
     if (sleeping && props.show === "monthly") {
-      setDailyData();
+      setDailyData(getDailyData(sleepingWithDate));
     }
-  }, [sleeping, props]);
+  }, [sleeping, props, sleepingWithDate]);
 
   useEffect(() => {
     if (props.show === "sevenDay") {
@@ -99,13 +103,22 @@ const Hours = (props) => {
     if (props.show === "thirtyDay") {
       setLabels(generateMonthlyLabel(new Date()));
     }
+    if (props.show === "monthly" && props.date) {
+      setLabels(generateSpecificMonthlyLabel(props.date));
+    }
   }, [props]);
 
   useEffect(() => {
-    if (props.show === "sevenDay" && labels && dailyData) {
+    if (
+      props.show === "sevenDay" ||
+      (props.show === "weekly" && labels && dailyData)
+    ) {
       setDatasets(getSevenDayWeeklyHoursDatasets(labels, dailyData));
     }
-    if (props.show === "thirtyDay" && labels && dailyData) {
+    if (
+      props.show === "thirtyDay" ||
+      (props.show === "monthly" && labels && dailyData)
+    ) {
       setDatasets(getThirtyDayWeeklyHoursDatasets(labels, dailyData));
     }
   }, [props, dailyData, labels]);

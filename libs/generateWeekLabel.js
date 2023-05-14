@@ -36,3 +36,18 @@ export const generateMonthlyLabel = (today) => {
 
   return dates;
 };
+
+export const generateSpecificMonthlyLabel = (dateString) => {
+  const [year, month, day] = dateString.split("-").map(Number);
+  const daysInMonth = new Date(year, month, 0).getDate();
+  const monthName = new Date(year, month - 1, 1).toLocaleString("default", {
+    month: "short",
+  });
+  const daysArray = [];
+
+  for (let i = 1; i <= daysInMonth; i++) {
+    daysArray.push(`${monthName} ${i}`);
+  }
+
+  return daysArray;
+};

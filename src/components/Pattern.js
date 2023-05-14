@@ -78,10 +78,10 @@ const Pattern = (props) => {
 
   useEffect(() => {
     if (sleeping && props.show === "sevenDay") {
-      setDailyData(getDailyData(sleeping, 7));
+      setDailyData(getDailyData(sleeping));
     }
     if (sleeping && props.show === "thirtyDay") {
-      setDailyData(getDailyData(sleeping, 30));
+      setDailyData(getDailyData(sleeping));
     }
   }, [sleeping, props]);
 
