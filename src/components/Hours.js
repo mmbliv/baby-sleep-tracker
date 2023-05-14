@@ -64,25 +64,27 @@ const Hours = (props) => {
 
   const { data: sleeping, mutate } = useSleeping(currentUser && currentUser.id);
 
+  const { data: sleepingWithDate } = useSleepingWithDate(
+    currentUser && currentUser.id,
+    props.show && props.show,
+    props.date && props.date
+  );
+
   const [dailyData, setDailyData] = useState();
 
   const [datasets, setDatasets] = useState();
 
-  const [sleepingWithDate, setSleepingWithDate] = useState();
+  // const [sleepingWithDate, setSleepingWithDate] = useState();
 
-  useEffect(() => {
-    const date = dayjs(props.date).format("YYYY-MM-DD");
+  // useEffect(() => {
+  //   const date = dayjs(props.date).format("YYYY-MM-DD");
 
-    if (props.show === "monthly" && props.date) {
-      fetchData(currentUser.id, "monthly", props.date).then((d) =>
-        setSleepingWithDate(d)
-      );
-    }
-  }, [props, currentUser]);
-  console.log(props.date);
-  console.log(sleepingWithDate);
-  console.log(dailyData);
-  console.log(datasets);
+  //   if (props.show === "monthly" && props.date) {
+  //     fetchData(currentUser.id, "monthly", props.date).then((d) =>
+  //       setSleepingWithDate(d)
+  //     );
+  //   }
+  // }, [props, currentUser]);
 
   useEffect(() => {
     if (sleeping && props.show === "sevenDay") {
@@ -110,14 +112,16 @@ const Hours = (props) => {
 
   useEffect(() => {
     if (
-      props.show === "sevenDay" ||
-      (props.show === "weekly" && labels && dailyData)
+      (props.show === "sevenDay" || props.show === "weekly") &&
+      labels &&
+      dailyData
     ) {
       setDatasets(getSevenDayWeeklyHoursDatasets(labels, dailyData));
     }
     if (
-      props.show === "thirtyDay" ||
-      (props.show === "monthly" && labels && dailyData)
+      (props.show === "thirtyDay" || props.show === "monthly") &&
+      labels &&
+      dailyData
     ) {
       setDatasets(getThirtyDayWeeklyHoursDatasets(labels, dailyData));
     }
