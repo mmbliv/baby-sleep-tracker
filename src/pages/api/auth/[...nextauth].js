@@ -49,7 +49,7 @@ export const authOptions = {
   jwt: {
     secret: process.env.JWT_SECRET,
   },
-  // secret: process.env.NEXTAUTH_SECRET,
+  secret: process.env.NEXTAUTH_SECRET,
 };
 
 export default NextAuth(authOptions);

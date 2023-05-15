@@ -1,0 +1,7 @@
+{
+    "build": {
+      "env": {
+        "PRISMA_GENERATE_CMD": "prisma generate"
+      }
+    }
+  }
