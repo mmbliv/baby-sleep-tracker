@@ -79,7 +79,7 @@ const Times = (props) => {
     if (sleeping && props.show === "thirtyDay") {
       setDailyData(getDailyData(sleeping));
     }
-    if (sleeping && props.show === "monthly") {
+    if (sleeping && (props.show === "monthly" || props.show === "weekly")) {
       setDailyData(getDailyData(sleepingWithDate));
     }
   }, [sleeping, props, sleepingWithDate]);
@@ -93,6 +93,9 @@ const Times = (props) => {
     }
     if (props.show === "monthly" && props.date) {
       setLabels(generateSpecificMonthlyLabel(props.date));
+    }
+    if (props.show === "weekly" && props.date) {
+      setLabels(["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]);
     }
   }, [props]);
 
