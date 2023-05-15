@@ -15,10 +15,16 @@ const Lists = (props) => {
 
   useEffect(() => {
     if (sleeping) {
-      setDailyData(getDailyData(sleeping));
+      const data = getDailyData(sleeping);
+      data.sort((a, b) => {
+        const dateA = new Date(a[0]);
+        const dateB = new Date(b[0]);
+        return dateB - dateA;
+      });
+      setDailyData(data);
     }
   }, [sleeping]);
-  // console.log(dailyData);
+  console.log(dailyData);
   if (props.show)
     return (
       <div>
