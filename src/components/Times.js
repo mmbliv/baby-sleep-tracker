@@ -86,10 +86,10 @@ const Times = (props) => {
 
   useEffect(() => {
     if (props.show === "sevenDay") {
-      setLabels(generateWeekLabel(dayjs().format("ddd")));
+      setLabels(generateMonthlyLabel(new Date(), "week"));
     }
     if (props.show === "thirtyDay") {
-      setLabels(generateMonthlyLabel(new Date()));
+      setLabels(generateMonthlyLabel(new Date(), "month"));
     }
     if (props.show === "monthly" && props.date) {
       setLabels(generateSpecificMonthlyLabel(props.date));

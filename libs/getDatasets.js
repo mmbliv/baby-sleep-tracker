@@ -9,7 +9,7 @@ export const getSevenDayWeeklyHoursDatasets = (labels, dailyData) => {
         let data = 0;
         if (dailyData)
           for (let j of dailyData) {
-            if (j[0].split(",")[0] === l) {
+            if (j[0].split(",")[1] === l) {
               data = calculateNap(j[1])[1] / 60;
             }
           }
@@ -23,7 +23,7 @@ export const getSevenDayWeeklyHoursDatasets = (labels, dailyData) => {
         let data = 0;
         if (dailyData)
           for (let j of dailyData) {
-            if (j[0].split(",")[0] === l) {
+            if (j[0].split(",")[1] === l) {
               data = calculateNap(j[1])[3] / 60;
             }
           }
@@ -75,7 +75,7 @@ export const getSevenDayTimesDatasets = (labels, dailyData) => {
         let data = 0;
         if (dailyData)
           for (let j of dailyData) {
-            if (j[0].split(",")[0] === l) {
+            if (j[0].split(",")[1] === l) {
               data = calculateNap(j[1])[0];
             }
           }
@@ -89,7 +89,7 @@ export const getSevenDayTimesDatasets = (labels, dailyData) => {
         let data = 0;
         if (dailyData)
           for (let j of dailyData) {
-            if (j[0].split(",")[0] === l) {
+            if (j[0].split(",")[1] === l) {
               data = calculateNap(j[1])[2];
             }
           }
@@ -152,7 +152,7 @@ export const getSevenDaypatternDatasets = (sleepingData, labels) => {
         if (copy.length)
           for (let j of copy) {
             if (
-              j[0]?.split(",")[0] === l &&
+              j[0]?.split(",")[1] === l &&
               j[1].length
               //   dayjs(j[1][0].fell_asleep).format("HH") >= 8 &&
               //   dayjs(j[1][0].fell_asleep).format("HH") < 20
@@ -189,7 +189,7 @@ export const getSevenDaypatternDatasets = (sleepingData, labels) => {
         let d = [];
         if (copy)
           for (let j of copy) {
-            if (j[0]?.split(",")[0] === l && j[1].length) {
+            if (j[0]?.split(",")[1] === l && j[1].length) {
               for (let m of j[1]) {
                 if (
                   dayjs(m.fell_asleep).format("HH") < 8 ||

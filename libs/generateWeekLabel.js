@@ -13,12 +13,20 @@ export const generateWeekLabel = (today) => {
 
 // generateWeekLabel("Sun");
 // export default generateWeekLabel;
-export const generateMonthlyLabel = (today) => {
+export const generateMonthlyLabel = (today, weekOrMonth) => {
   const options = { month: "short", day: "numeric" };
   const dates = [];
 
   // Add previous days
-  const numPreviousDays = 29;
+
+  let numPreviousDays;
+  if (weekOrMonth === "month") {
+    numPreviousDays = 29;
+  }
+  if (weekOrMonth === "week") {
+    numPreviousDays = 7;
+  }
+
   let previousDate = new Date(
     today.getFullYear(),
     today.getMonth(),
