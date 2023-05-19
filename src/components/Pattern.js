@@ -5,9 +5,9 @@ import useSleeping from "@/hooks/useSleeping";
 import useCurrentUser from "@/hooks/useCurrentUser";
 import dayjs from "dayjs";
 import {
-  generateWeekLabel,
   generateMonthlyLabel,
   generateSpecificMonthlyLabel,
+  generateSpecificWeeklyLabel,
 } from "../../libs/generateWeekLabel";
 import { getDailyData } from "../../libs/getDailyData";
 import { useState, useEffect } from "react";
@@ -100,7 +100,7 @@ const Pattern = (props) => {
       setLabels(generateSpecificMonthlyLabel(props.date));
     }
     if (props.show === "weekly" && props.date) {
-      setLabels(["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]);
+      setLabels(generateSpecificWeeklyLabel(props.date));
     }
   }, [props]);
 

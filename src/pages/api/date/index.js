@@ -24,6 +24,7 @@ export default async function handler(req, res) {
                 gte: weekStart,
                 lt: weekEnd,
               },
+              userId,
             },
             include: {
               user: true,
@@ -47,6 +48,7 @@ export default async function handler(req, res) {
                 gte: startDate,
                 lt: endDate,
               },
+              userId,
             },
             include: {
               user: true,

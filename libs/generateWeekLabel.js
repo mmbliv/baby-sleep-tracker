@@ -59,3 +59,20 @@ export const generateSpecificMonthlyLabel = (dateString) => {
 
   return daysArray;
 };
+
+export const generateSpecificWeeklyLabel = (dateString) => {
+  const startDate = new Date(dateString);
+  startDate.setDate(startDate.getDate() - startDate.getDay() + 1);
+  const weekDates = [];
+
+  for (let i = 0; i < 7; i++) {
+    const currentDate = new Date(startDate.getTime() + i * 24 * 60 * 60 * 1000);
+    const formattedDate = currentDate.toLocaleString("en-US", {
+      month: "long",
+      day: "numeric",
+    });
+    weekDates.push(formattedDate);
+  }
+
+  return weekDates;
+};

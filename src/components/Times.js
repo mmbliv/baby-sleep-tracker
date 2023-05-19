@@ -15,9 +15,9 @@ import dayjs from "dayjs";
 import { getDailyData } from "../../libs/getDailyData";
 import { useState, useEffect } from "react";
 import {
-  generateWeekLabel,
   generateMonthlyLabel,
   generateSpecificMonthlyLabel,
+  generateSpecificWeeklyLabel,
 } from "../../libs/generateWeekLabel";
 import {
   getSevenDayTimesDatasets,
@@ -95,7 +95,7 @@ const Times = (props) => {
       setLabels(generateSpecificMonthlyLabel(props.date));
     }
     if (props.show === "weekly" && props.date) {
-      setLabels(["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]);
+      setLabels(generateSpecificWeeklyLabel(props.date));
     }
   }, [props]);
 
