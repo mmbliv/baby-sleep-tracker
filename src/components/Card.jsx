@@ -29,7 +29,11 @@ const Card = (props) => {
 
   // console.log(props.data, "))))))");
   useEffect(() => {
-    if (props.data && props.data[0] && !props.data[0].woke_up) {
+    let latsIndex;
+    if (props.data) {
+      latsIndex = props.data.length - 1;
+    }
+    if (props.data && props.data[latsIndex] && !props.data[latsIndex].woke_up) {
       setFellAsleep(true);
     } else {
       setFellAsleep(false);
