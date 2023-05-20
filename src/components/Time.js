@@ -33,9 +33,13 @@ export default function Timer({ isOpen }) {
   };
 
   useEffect(() => {
-    if (sleepling && sleepling[0] && !sleepling[0].woke_up) {
-      setFellAsleepValue(dayjs(sleepling[0].fell_asleep));
-      setNote(sleepling[0].note);
+    let latsIndex;
+    if (sleepling) {
+      latsIndex = sleepling.length - 1;
+    }
+    if (sleepling && sleepling[latsIndex] && !sleepling[latsIndex].woke_up) {
+      setFellAsleepValue(dayjs(sleepling[latsIndex].fell_asleep));
+      setNote(sleepling[latsIndex].note);
     } else {
       setFellAsleepValue(dayjs(Date().toLocaleString()));
       setWokeUpValue();
