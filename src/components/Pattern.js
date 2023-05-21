@@ -37,25 +37,56 @@ const options = {
       display: true,
       text: "Pattern",
     },
+    tooltip: {
+      callbacks: {
+        label: function (context) {
+          const value = context.raw;
+          // console.log(value);
+          const formatedData = value.map((d, i) => {
+            let h = "";
+            if (i === 0) {
+              h = "-";
+            }
+            if ((d % 1) * 60 === 0) {
+              return Math.floor(d) + ":" + (d % 1) * 60 + "0" + h;
+            } else {
+              if (Math.floor((d % 1) * 60) < 10) {
+                return Math.floor(d) + ":" + "0" + Math.floor((d % 1) * 60) + h;
+              } else {
+                return Math.floor(d) + ":" + Math.floor((d % 1) * 60) + h;
+              }
+            }
+          });
+          return formatedData;
+
+          // Custom formatting logic
+          // return '$' + value.toFixed(2);
+        },
+      },
+    },
   },
+
   scales: {
     x: {
       stacked: true,
     },
     y: {
-      //   stacked: true,
-      //   type: "time",
-      //   time: {
-      //     displayFormats: {
-      //       hour: "hA",
-      //     },
-      //     unit: "hour",
+      // type: "time",
+      // time: {
+      //   displayFormats: {
+      //     hour: "hA",
       //   },
-      //   ticks: {
-      //     min: "01:00:00",
-      //     max: "24:00:00",
-      //     stepSize: 60 * 60 * 1000,
-      //   },
+      //   unit: "hour",
+      // },
+      ticks: {
+        callback: function (value, index, ticks) {
+          if (value < 10) {
+            return "0" + value + ":" + "00" + ":" + "00";
+          } else {
+            return value + ":" + "00" + ":" + "00";
+          }
+        },
+      },
     },
   },
 };
@@ -126,6 +157,7 @@ const Pattern = (props) => {
     // datasets: calculateSleepingRange(dailyData, labels),
     datasets: datasets || [],
   };
+
   return (
     <>
       <Bar options={options} data={data} />

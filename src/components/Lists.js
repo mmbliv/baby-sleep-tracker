@@ -24,7 +24,7 @@ const Lists = (props) => {
       setDailyData(data);
     }
   }, [sleeping]);
-  console.log(dailyData);
+  // console.log(dailyData);
   if (props.show)
     return (
       <div>

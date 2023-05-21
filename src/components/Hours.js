@@ -118,7 +118,7 @@ const Hours = (props) => {
     }
   }, [props, dailyData, labels]);
 
-  console.log(dailyData);
+  // console.log(dailyData);
   //   console.log(labels);
   //   console.log(datasets);
   const data = {
