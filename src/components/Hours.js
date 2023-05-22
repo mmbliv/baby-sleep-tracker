@@ -87,7 +87,6 @@ const Hours = (props) => {
       setDailyData(getDailyData(sleepingWithDate));
     }
   }, [sleeping, props, sleepingWithDate]);
-  console.log(sleepingWithDate);
 
   useEffect(() => {
     if (props.show === "sevenDay") {
