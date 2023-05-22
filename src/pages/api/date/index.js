@@ -13,16 +13,21 @@ export default async function handler(req, res) {
       // console.log(date);
       if (userId && typeof userId === "string") {
         if (weekOrMonth === "weekly") {
-          const queryDate = new Date(date);
-          const weekStart = new Date(queryDate);
-          weekStart.setDate(weekStart.getDate() - queryDate.getDay());
-          const weekEnd = new Date(weekStart);
-          weekEnd.setDate(weekEnd.getDate() + 7);
+          const inputDate = new Date(date);
+
+          // Determine the start and end dates of the week containing the input date
+          const firstDayOfWeek =
+            inputDate.getDate() -
+            inputDate.getDay() +
+            (inputDate.getDay() === 0 ? -6 : 1);
+          const startOfWeek = new Date(inputDate.setDate(firstDayOfWeek));
+          const endOfWeek = new Date(inputDate.setDate(firstDayOfWeek + 6));
+          console.log(startOfWeek, endOfWeek);
           sleeping = await prisma.sleeping.findMany({
             where: {
               fell_asleep: {
-                gte: weekStart,
-                lt: weekEnd,
+                gte: startOfWeek,
+                lt: endOfWeek,
               },
               userId,
             },
@@ -41,7 +46,6 @@ export default async function handler(req, res) {
 
           const startDate = new Date(year, month, 1);
           const endDate = new Date(year, month + 1, 1);
-
           sleeping = await prisma.sleeping.findMany({
             where: {
               fell_asleep: {

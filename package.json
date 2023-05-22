@@ -25,6 +25,7 @@
     "chartjs-adapter-dayjs-4": "^1.0.4",
     "cookie": "^0.5.0",
     "dayjs": "^1.11.7",
+    "dayjs-plugin-utc": "^0.1.2",
     "eslint": "8.39.0",
     "eslint-config-next": "13.3.1",
     "javascript-time-ago": "^2.5.9",

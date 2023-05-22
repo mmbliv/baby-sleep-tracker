@@ -25,6 +25,8 @@ import {
 } from "../../libs/getDatasets";
 import useSleepingWithDate from "@/hooks/useSleepingWithDate";
 import { fetchData } from "../../libs/fetchdataWithDate";
+import dayjsPluginUTC from "dayjs-plugin-utc";
+dayjs.extend(dayjsPluginUTC);
 
 ChartJS.register(
   CategoryScale,
@@ -85,6 +87,7 @@ const Hours = (props) => {
       setDailyData(getDailyData(sleepingWithDate));
     }
   }, [sleeping, props, sleepingWithDate]);
+  console.log(sleepingWithDate);
 
   useEffect(() => {
     if (props.show === "sevenDay") {

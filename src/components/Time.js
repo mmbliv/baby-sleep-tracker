@@ -41,7 +41,7 @@ export default function Timer({ isOpen }) {
       setFellAsleepValue(dayjs(sleepling[latsIndex].fell_asleep));
       setNote(sleepling[latsIndex].note);
     } else {
-      setFellAsleepValue(dayjs(Date().toLocaleString()));
+      setFellAsleepValue(dayjs());
       setWokeUpValue();
       setNote("");
     }

@@ -70,7 +70,11 @@ const Card = (props) => {
       return (
         <div>
           <ReactTimeAgo
-            date={props.data && props.data[0] ? props.data[0].fell_asleep : 0}
+            date={
+              props.data && props.data[props.data.length - 1]
+                ? props.data[props.data.length - 1].fell_asleep
+                : 0
+            }
             // locale="en-US"
             // date={new Date(Date.now() - (1 * 60 * 60 * 1000 + 30 * 60 * 1000))}
             // formatter={formatter}
