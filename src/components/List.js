@@ -27,7 +27,7 @@ const List = (props) => {
         <p className=" m-0 text-4xl text-red-300">{dateArr && dateArr[2]}</p>
         <p className=" m-0">{dateArr && dateArr[1]}</p>
       </div>
-      <div className=" text-8xl text-red-300">|</div>
+      <div className=" text-5xl text-red-300">|</div>
       <div>
         <p>
           Slept {changeMinToHour(addSleepTime(props.data[1]))},{" "}
