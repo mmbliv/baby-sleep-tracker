@@ -40,17 +40,6 @@ const Card = (props) => {
   }, [props.data]);
   // console.log(currentUser);
 
-  const formatter = (value, unit, suffix) => {
-    if (unit === "second") {
-      return "just now";
-    } else if (unit === "minute") {
-      return `${value} min ${suffix}`;
-    } else if (unit === "hour") {
-      return `${value} hr ${suffix}`;
-    } else {
-      return `${value} ${unit} ${suffix}`;
-    }
-  };
   // console.log(props.data[0].fell_asleep);
   function helper() {
     const wokeUpTimestamp =
@@ -61,17 +50,27 @@ const Card = (props) => {
     const currentTime = new Date();
 
     const diffInMinutes = Math.round((currentTime - wokeUpDate) / (1000 * 60));
-    const hours = Math.floor(diffInMinutes / 60);
-    const minutes = diffInMinutes % 60;
-    let h = "hour";
+    let hours = Math.floor(diffInMinutes / 60);
+    let minutes = diffInMinutes % 60;
+    let h = "h";
     let m = "min";
-    if (hours > 1) h = "hours";
-    if (minutes > 1) m = "mins";
+    if (hours === 0) {
+      hours = "";
+      h = "";
+    }
+    if (minutes === 0) {
+      m = "";
+      minutes = "";
+    }
 
-    const timeAgo = format(
-      wokeUpDate,
-      `${hours} '${h}' ${minutes} '${m}' 'ago'`
-    );
+    // const timeAgo = format(
+    //   wokeUpDate,
+    //   `${hours} "${h}" ${minutes} "${m}" ago`,
+    //   {
+    //     useAdditionalWeekYearTokens: false,
+    //   }
+    // );
+
     if (fellAsleep && currentUser) {
       return (
         <div>
@@ -87,7 +86,10 @@ const Card = (props) => {
     } else {
       return (
         <div>
-          <p> {timeAgo}</p>
+          <p>
+            {" "}
+            {hours} {h} {minutes} {m} ago
+          </p>
           {/* <ReactTimeAgo
             date={
               props.data && props.data[props.data.length - 1]
