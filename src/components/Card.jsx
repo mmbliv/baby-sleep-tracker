@@ -3,11 +3,10 @@ import React, { useCallback, useEffect, useState } from "react";
 // import LoginModal from "./Modals/LoginModal";
 import useLoginModal from "@/hooks/useLoginModal";
 import useTimer from "@/hooks/useTimer";
-import useSleeping from "@/hooks/useSleeping";
 import { GiNightSleep } from "react-icons/gi";
-import ReactTimeAgo from "react-time-ago";
 import dayjs from "dayjs";
 import changeMinIntoHour from "../../libs/changeMinIntoHour";
+import { formatDistanceToNow, format } from "date-fns";
 
 const Card = (props) => {
   const { data: currentUser } = useCurrentUser();
@@ -54,6 +53,25 @@ const Card = (props) => {
   };
   // console.log(props.data[0].fell_asleep);
   function helper() {
+    const wokeUpTimestamp =
+      props.data && props.data[props.data.length - 1]
+        ? props.data[props.data.length - 1].woke_up
+        : 0;
+    const wokeUpDate = new Date(wokeUpTimestamp);
+    const currentTime = new Date();
+
+    const diffInMinutes = Math.round((currentTime - wokeUpDate) / (1000 * 60));
+    const hours = Math.floor(diffInMinutes / 60);
+    const minutes = diffInMinutes % 60;
+    let h = "hour";
+    let m = "min";
+    if (hours > 1) h = "hours";
+    if (minutes > 1) m = "mins";
+
+    const timeAgo = format(
+      wokeUpDate,
+      `${hours} '${h}' ${minutes} '${m}' 'ago'`
+    );
     if (fellAsleep && currentUser) {
       return (
         <div>
@@ -69,23 +87,22 @@ const Card = (props) => {
     } else {
       return (
         <div>
-          <ReactTimeAgo
+          <p> {timeAgo}</p>
+          {/* <ReactTimeAgo
             date={
               props.data && props.data[props.data.length - 1]
-                ? props.data[props.data.length - 1].fell_asleep
+                ? new Date(props.data[props.data.length - 1].woke_up)
                 : 0
             }
-            // locale="en-US"
-            // date={new Date(Date.now() - (1 * 60 * 60 * 1000 + 30 * 60 * 1000))}
-            // formatter={formatter}
-          ></ReactTimeAgo>
+            minPeriod={60}
+          ></ReactTimeAgo> */}
           <p>
             Slept{" "}
             {props.data &&
-              props.data[0] &&
+              props.data[props.data.length - 1] &&
               changeMinIntoHour(
-                dayjs(props.data[0].woke_up).diff(
-                  dayjs(props.data[0].fell_asleep),
+                dayjs(props.data[props.data.length - 1].woke_up).diff(
+                  dayjs(props.data[props.data.length - 1].fell_asleep),
                   "minute"
                 )
               )}
