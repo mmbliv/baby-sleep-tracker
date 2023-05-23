@@ -19,9 +19,13 @@ const Header = () => {
       <p>{currentUser ? currentUser.name : "welcome"}</p>
       <div>
         {currentUser ? (
-          <button onClick={() => signOut()}>Sign Out</button>
+          <button onClick={() => signOut()} className="rounded-sm border-none">
+            Sign Out
+          </button>
         ) : (
-          <button onClick={onClick}>Sign in</button>
+          <button onClick={onClick} className=" rounded-sm border-none">
+            Sign in
+          </button>
         )}
       </div>
     </div>
