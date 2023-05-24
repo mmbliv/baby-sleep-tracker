@@ -102,7 +102,7 @@ const Hours = (props) => {
       setLabels(generateSpecificWeeklyLabel(props.date));
     }
   }, [props]);
-
+  console.log(dailyData);
   useEffect(() => {
     if (
       (props.show === "sevenDay" || props.show === "weekly") &&

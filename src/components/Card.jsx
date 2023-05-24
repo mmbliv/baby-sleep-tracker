@@ -52,7 +52,7 @@ const Card = (props) => {
     const diffInMinutes = Math.round((currentTime - wokeUpDate) / (1000 * 60));
     let hours = Math.floor(diffInMinutes / 60);
     let minutes = diffInMinutes % 60;
-    let h = "h";
+    let h = "hr";
     let m = "min";
     if (hours === 0) {
       hours = "";
