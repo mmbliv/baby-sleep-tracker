@@ -134,7 +134,6 @@ export const getThirtyDayTimesDataset = (labels, dailyData) => {
 };
 
 export const getSevenDaypatternDatasets = (sleepingData, labels) => {
-  console.log(sleepingData);
   //   const datasetLength = getTheLengthOfDataset(sleepingData);
   let copy = [];
   if (sleepingData) {
@@ -161,7 +160,8 @@ export const getSevenDaypatternDatasets = (sleepingData, labels) => {
               for (let m of j[1]) {
                 if (
                   dayjs(m.fell_asleep).format("HH") >= 8 &&
-                  dayjs(m.fell_asleep).format("HH") < 20
+                  dayjs(m.fell_asleep).format("HH") < 20 &&
+                  m.woke_up
                 ) {
                   const hourF = dayjs(m.fell_asleep).hour();
                   const minF = dayjs(m.fell_asleep).minute();
@@ -172,10 +172,7 @@ export const getSevenDaypatternDatasets = (sleepingData, labels) => {
                     (hourW + minW / 60).toFixed(2),
                   ];
                   const index = j[1].indexOf(m);
-                  //   console.log(dayjs(m.fell_asleep).format("HH"));
-                  //   console.log(minF);
                   j[1].splice(index, 1);
-                  //   console.log(d, "day");
                   return d;
                 }
               }
@@ -193,8 +190,9 @@ export const getSevenDaypatternDatasets = (sleepingData, labels) => {
             if (j[0]?.split(",")[1] === l && j[1].length) {
               for (let m of j[1]) {
                 if (
-                  dayjs(m.fell_asleep).format("HH") < 8 ||
-                  dayjs(m.fell_asleep).format("HH") >= 20
+                  (dayjs(m.fell_asleep).format("HH") < 8 ||
+                    dayjs(m.fell_asleep).format("HH") >= 20) &&
+                  m.woke_up
                 ) {
                   const hourF = dayjs(m.fell_asleep).hour();
                   const minF = dayjs(m.fell_asleep).minute();
@@ -246,7 +244,8 @@ export const getThirtyDaypatternDatasets = (sleepingData, labels) => {
               for (let m of j[1]) {
                 if (
                   dayjs(m.fell_asleep).format("HH") >= 8 &&
-                  dayjs(m.fell_asleep).format("HH") < 20
+                  dayjs(m.fell_asleep).format("HH") < 20 &&
+                  m.woke_up
                 ) {
                   const hourF = dayjs(m.fell_asleep).hour();
                   const minF = dayjs(m.fell_asleep).minute();
@@ -278,8 +277,9 @@ export const getThirtyDaypatternDatasets = (sleepingData, labels) => {
             if (j[0]?.split(",")[1] === l && j[1].length) {
               for (let m of j[1]) {
                 if (
-                  dayjs(m.fell_asleep).format("HH") < 8 ||
-                  dayjs(m.fell_asleep).format("HH") >= 20
+                  (dayjs(m.fell_asleep).format("HH") < 8 ||
+                    dayjs(m.fell_asleep).format("HH") >= 20) &&
+                  m.woke_up
                 ) {
                   const hourF = dayjs(m.fell_asleep).hour();
                   const minF = dayjs(m.fell_asleep).minute();

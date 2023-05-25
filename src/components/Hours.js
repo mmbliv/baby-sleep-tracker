@@ -87,7 +87,6 @@ const Hours = (props) => {
       setDailyData(getDailyData(sleepingWithDate));
     }
   }, [sleeping, props, sleepingWithDate]);
-  console.log(sleepingWithDate);
   useEffect(() => {
     if (props.show === "sevenDay") {
       setLabels(generateMonthlyLabel(new Date(), "week"));
@@ -102,8 +101,6 @@ const Hours = (props) => {
       setLabels(generateSpecificWeeklyLabel(props.date));
     }
   }, [props]);
-  console.log(dailyData);
-  console.log(sleeping);
   useEffect(() => {
     if (
       (props.show === "sevenDay" || props.show === "weekly") &&

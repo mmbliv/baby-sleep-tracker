@@ -8,8 +8,10 @@ export function getDailyData(sleepingData) {
     for (let i of sleepingData) {
       const DateFellAsleep = new Date(i.fell_asleep);
       const date = dayjs(DateFellAsleep).format("ddd,MMM D");
-
-      const DateWokeUp = new Date(i.woke_up);
+      let DateWokeUp;
+      if (i.woke_up) {
+        DateWokeUp = new Date(i.woke_up);
+      }
 
       i = {
         ...i,
@@ -24,7 +26,6 @@ export function getDailyData(sleepingData) {
       }
     }
   let arr = Object.entries(result);
-
   return arr;
 }
 

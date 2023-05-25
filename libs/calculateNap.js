@@ -12,14 +12,18 @@ const calculateNap = (dataArr) => {
       dayjs(i.fell_asleep).format("HH") < 20
     ) {
       napTimes += 1;
-      napTime =
-        napTime + dayjs(i.woke_up).diff(dayjs(i.fell_asleep), "minute") + 1;
+      if (i.woke_up) {
+        napTime =
+          napTime + dayjs(i.woke_up).diff(dayjs(i.fell_asleep), "minute") + 1;
+      }
     } else {
       nightSleepTimes += 1;
-      nightSleepTime =
-        nightSleepTime +
-        dayjs(i.woke_up).diff(dayjs(i.fell_asleep), "minute") +
-        1;
+      if (i.woke_up) {
+        nightSleepTime =
+          nightSleepTime +
+          dayjs(i.woke_up).diff(dayjs(i.fell_asleep), "minute") +
+          1;
+      }
     }
   }
   return [napTimes, napTime, nightSleepTimes, nightSleepTime];
