@@ -41,6 +41,7 @@ export default function Timer({ isOpen }) {
       const localTime = new Date(sleepling[latsIndex].fell_asleep);
       setFellAsleepValue(dayjs(localTime));
       setNote(sleepling[latsIndex].note);
+      setWokeUpValue();
     } else {
       setFellAsleepValue(dayjs());
       setWokeUpValue();

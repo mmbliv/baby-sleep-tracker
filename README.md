@@ -29,7 +29,7 @@
 
 ---
 
-## Check out this app at [Baby'sleep tracker](https://recipes-ga.netlify.app/)!
+## Check out this app at [Baby'sleep tracker](https://babysleep.vercel.app/)!
 
 ### Later Additions:
 
