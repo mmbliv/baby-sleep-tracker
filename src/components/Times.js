@@ -52,6 +52,9 @@ const options = {
     },
     y: {
       stacked: true,
+      ticks: {
+        precision: 0, // Set the precision to 0 to display only integers
+      },
     },
   },
 };

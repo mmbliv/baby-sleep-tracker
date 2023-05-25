@@ -68,7 +68,7 @@ export const generateSpecificWeeklyLabel = (dateString) => {
   for (let i = 0; i < 7; i++) {
     const currentDate = new Date(startDate.getTime() + i * 24 * 60 * 60 * 1000);
     const formattedDate = currentDate.toLocaleString("en-US", {
-      month: "long",
+      month: "short",
       day: "numeric",
     });
     weekDates.push(formattedDate);

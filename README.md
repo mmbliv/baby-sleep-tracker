@@ -27,7 +27,7 @@
 
 #### Users can choose to view their baby's sleep patterns in the form of a list or a chart.
 
-![Alt text](/Images/SCR3_2.gif)
+## <img src='images/list_chart.gif' width='250' height='150'>
 
 ---
 
