@@ -1,7 +1,7 @@
 <!-- ![Alt text](/images/logo.png) -->
 <!-- <img src='images/logo.png' width='115' height='50'> -->
 
-# About
+## About
 
 ## Check out this app at [Baby'sleep tracker](https://babysleep.vercel.app/)!
 
@@ -17,27 +17,21 @@
 
 ## <img src='images/record.gif' width='450' height='250'>
 
----
-
 #### Users can choose to view their baby's sleep patterns in the form of a list or a chart.
 
 ## <img src='images/list_chart.gif' width='450' height='250'>
-
----
 
 #### Users can choose to view their baby's sleep data for the past 7 days, the past month, or any specific week or month..
 
 ## <img src='images/charts.gif' width='450' height='250'>
 
----
-
-### Later Additions:
+## Later Additions:
 
 - Add more data to track, such as feeding, pumping and diaper changes
 - Expand to a mobile app
 - Allow user to download the data
 
-### Built With:
+## Built With:
 
 ![image](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
 ![image](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
