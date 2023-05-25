@@ -1,7 +1,9 @@
 <!-- ![Alt text](/images/logo.png) -->
-<img src='images/logo.png' width='115' height='50'>
+<!-- <img src='images/logo.png' width='115' height='50'> -->
 
 # About
+
+## Check out this app at [Baby'sleep tracker](https://babysleep.vercel.app/)!
 
 #### This is an app that can help parents record and analyze their baby's sleep.
 
@@ -9,27 +11,25 @@
 
 #### This app comes with full authentication.
 
-## <img src='images/authentication.gif' width='250' height='150'>
+## <img src='images/authentication.gif' width='450' height='250'>
 
 #### On the home page, users can record their baby's sleep time.
 
-## <img src='images/record.gif' width='250' height='150'>
+## <img src='images/record.gif' width='450' height='250'>
 
 ---
 
 #### Users can choose to view their baby's sleep patterns in the form of a list or a chart.
 
-## <img src='images/list_chart.gif' width='250' height='150'>
+## <img src='images/list_chart.gif' width='450' height='250'>
 
 ---
 
 #### Users can choose to view their baby's sleep data for the past 7 days, the past month, or any specific week or month..
 
-## <img src='images/charts.gif' width='250' height='150'>
+## <img src='images/charts.gif' width='450' height='250'>
 
 ---
-
-## Check out this app at [Baby'sleep tracker](https://babysleep.vercel.app/)!
 
 ### Later Additions:
 
@@ -50,8 +50,3 @@
 ![image](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)
 ![image](https://img.shields.io/badge/Chart.js-FF6384?style=for-the-badge&logo=chartdotjs&logoColor=white)
 ![image](https://img.shields.io/badge/npm-CB3837?style=for-the-badge&logo=npm&logoColor=white)
-
-## Contributions:
-
-- [Deployed App](https://babysleep.vercel.app/)
-- [Front End Repository](https://github.com/mmbliv/baby-sleep-tracker)
