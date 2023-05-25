@@ -52,6 +52,7 @@ export default async function handler(req, res) {
       return res.status(200).json(sleeping);
     }
   } catch (error) {
+    console.log(error);
     return res.status(400).end();
   }
 
@@ -70,6 +71,7 @@ export default async function handler(req, res) {
       });
       return res.status(200).json(updatedSleeping);
     } catch (err) {
+      console.log(err);
       return res.status(400).end();
     }
   }
