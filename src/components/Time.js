@@ -38,7 +38,8 @@ export default function Timer({ isOpen }) {
       latsIndex = sleepling.length - 1;
     }
     if (sleepling && sleepling[latsIndex] && !sleepling[latsIndex].woke_up) {
-      setFellAsleepValue(dayjs(sleepling[latsIndex].fell_asleep));
+      const localTime = new Date(sleepling[latsIndex].fell_asleep);
+      setFellAsleepValue(dayjs(localTime));
       setNote(sleepling[latsIndex].note);
     } else {
       setFellAsleepValue(dayjs());
