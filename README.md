@@ -19,7 +19,7 @@
 
 ## <img src='images/list_chart.gif' width='450' height='250'>
 
-#### Users can choose to view their baby's sleep data for the past 7 days, the past month, or any specific week or month..
+#### Users can choose to view their baby's sleep data for the past 7 days, the past month, or any specific week or month.
 
 ## <img src='images/charts.gif' width='450' height='250'>
 
