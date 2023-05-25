@@ -22,7 +22,6 @@ export default async function handler(req, res) {
             (inputDate.getDay() === 0 ? -6 : 1);
           const startOfWeek = new Date(inputDate.setDate(firstDayOfWeek));
           const endOfWeek = new Date(inputDate.setDate(firstDayOfWeek + 6));
-          console.log(startOfWeek, endOfWeek);
           sleeping = await prisma.sleeping.findMany({
             where: {
               fell_asleep: {

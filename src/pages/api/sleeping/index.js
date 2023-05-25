@@ -23,30 +23,35 @@ export default async function handler(req, res) {
     }
 
     if (req.method === "GET") {
-      const d = new Date();
-      const year = d.getFullYear();
-      const month = d.getMonth();
-      // console.log(d);
-      const startDate = new Date(year, month, 1);
-      const endDate = new Date(year, month + 1, 1);
-      sleeping = await prisma.sleeping.findMany({
-        where: {
-          fell_asleep: {
-            gte: startDate,
-            lt: endDate,
+      const { userId } = req.query;
+      let sleeping;
+
+      if (userId && typeof userId === "string") {
+        const d = new Date();
+        const year = d.getFullYear();
+        const month = d.getMonth();
+
+        const startDate = new Date(year, month, 1);
+        const endDate = new Date(year, month + 1, 1);
+        sleeping = await prisma.sleeping.findMany({
+          where: {
+            fell_asleep: {
+              gte: startDate,
+              lt: endDate,
+            },
+            userId,
           },
-          userId,
-        },
-        include: {
-          user: true,
-        },
-        orderBy: {
-          createdAt: "asc",
-        },
-      });
+          include: {
+            user: true,
+          },
+          orderBy: {
+            createdAt: "asc",
+          },
+        });
+      }
+      return res.status(200).json(sleeping);
     }
   } catch (error) {
-    console.log(error);
     return res.status(400).end();
   }
 
@@ -65,7 +70,6 @@ export default async function handler(req, res) {
       });
       return res.status(200).json(updatedSleeping);
     } catch (err) {
-      console.log(err);
       return res.status(400).end();
     }
   }
