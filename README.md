@@ -5,10 +5,6 @@
 
 #### This is an app that can help parents record and analyze their baby's sleep.
 
-<br>
-
-<br/>
-
 <br/>
 
 ## Features:
@@ -36,9 +32,6 @@
 ---
 
 ## Check out this app at [Baby'sleep tracker](https://recipes-ga.netlify.app/)!
-
-<br/>
-<br/>
 
 ### Later Additions:
 
