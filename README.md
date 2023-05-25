@@ -5,8 +5,6 @@
 
 #### This is an app that can help parents record and analyze their baby's sleep.
 
-<br/>
-
 ## Features:
 
 #### This app comes with full authentication.
