@@ -134,7 +134,8 @@ const Pattern = (props) => {
       setLabels(generateSpecificWeeklyLabel(props.date));
     }
   }, [props]);
-
+  console.log(dailyData);
+  console.log(sleeping);
   useEffect(() => {
     if (
       (props.show === "sevenDay" || props.show === "weekly") &&

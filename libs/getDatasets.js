@@ -134,6 +134,7 @@ export const getThirtyDayTimesDataset = (labels, dailyData) => {
 };
 
 export const getSevenDaypatternDatasets = (sleepingData, labels) => {
+  console.log(sleepingData);
   //   const datasetLength = getTheLengthOfDataset(sleepingData);
   let copy = [];
   if (sleepingData) {

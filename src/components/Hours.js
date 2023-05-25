@@ -103,6 +103,7 @@ const Hours = (props) => {
     }
   }, [props]);
   console.log(dailyData);
+  console.log(sleeping);
   useEffect(() => {
     if (
       (props.show === "sevenDay" || props.show === "weekly") &&
