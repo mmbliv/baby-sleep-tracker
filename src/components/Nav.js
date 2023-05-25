@@ -4,10 +4,30 @@ const Nav = (props) => {
   return (
     <div className="h-14 bg-slate-300 w-full flex items-center justify-around gap-4">
       <div className="flex items-center gap-4">
-        <p onClick={props.handleWeekly}>Weekly</p>
-        <p onClick={props.handleMonthly}>Monthly</p>
-        <p onClick={props.handleSevenDay}>7-day</p>
-        <p onClick={props.handleThirtyDay}>30-day</p>
+        <button
+          onClick={props.handleWeekly}
+          className="border-none bg-transparent text-lg"
+        >
+          Weekly
+        </button>
+        <button
+          onClick={props.handleMonthly}
+          className="border-none bg-transparent text-lg"
+        >
+          Monthly
+        </button>
+        <button
+          onClick={props.handleSevenDay}
+          className="border-none bg-transparent text-lg"
+        >
+          7-day
+        </button>
+        <button
+          onClick={props.handleThirtyDay}
+          className="border-none bg-transparent text-lg"
+        >
+          30-day
+        </button>
       </div>
       <div className="flex gap-3">
         <button
