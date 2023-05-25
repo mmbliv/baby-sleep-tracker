@@ -55,7 +55,9 @@ export default function Timer({ isOpen }) {
       !sleepling[0].woke_up &&
       wokeUpValue &&
       dayjs(fellasleepValue).format("YYYY-MM-DDTHH:mm:ss.SSS[Z]") ===
-        dayjs(sleepling[0].fell_asleep).format("YYYY-MM-DDTHH:mm:ss.SSS[Z]")
+        dayjs(new Date(sleepling[0].fell_asleep)).format(
+          "YYYY-MM-DDTHH:mm:ss.SSS[Z]"
+        )
     ) {
       if (
         dayjs(wokeUpValue).date() !== dayjs(sleepling[0].fell_asleep).date()
