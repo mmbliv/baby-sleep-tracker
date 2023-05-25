@@ -23,24 +23,27 @@ export default async function handler(req, res) {
     }
 
     if (req.method === "GET") {
-      const { userId } = req.query;
-      let sleeping;
-
-      if (userId && typeof userId === "string") {
-        sleeping = await prisma.sleeping.findMany({
-          where: {
-            userId,
+      const d = new Date();
+      const year = d.getFullYear();
+      const month = d.getMonth();
+      // console.log(d);
+      const startDate = new Date(year, month, 1);
+      const endDate = new Date(year, month + 1, 1);
+      sleeping = await prisma.sleeping.findMany({
+        where: {
+          fell_asleep: {
+            gte: startDate,
+            lt: endDate,
           },
-          include: {
-            user: true,
-          },
-          take: 30,
-          orderBy: {
-            createdAt: "asc",
-          },
-        });
-      }
-      return res.status(200).json(sleeping);
+          userId,
+        },
+        include: {
+          user: true,
+        },
+        orderBy: {
+          createdAt: "asc",
+        },
+      });
     }
   } catch (error) {
     console.log(error);
