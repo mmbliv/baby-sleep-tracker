@@ -9,19 +9,19 @@
 
 #### This app comes with full authentication.
 
- <img src='images/authentication.gif' width='450' height='250'>
+ <img src='images/authentication.gif' width='550' height='350'>
 
 #### On the home page, users can record their baby's sleep time.
 
- <img src='images/record.gif' width='450' height='250'>
+ <img src='images/record.gif' width='550' height='350'>
 
 #### Users can choose to view their baby's sleep patterns in the form of a list or a chart.
 
- <img src='images/list_chart.gif' width='450' height='250'>
+ <img src='images/list_chart.gif' width='550' height='350'>
 
 #### Users can choose to view their baby's sleep data for the past 7 days, the past month, or any specific week or month.
 
- <img src='images/charts.gif' width='450' height='250'>
+ <img src='images/charts.gif' width='550' height='350'>
 
 ## Later Additions:
 
